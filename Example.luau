@@ -1,18 +1,16 @@
-local Airflow = loadstring(game:HttpGet("https://raw.githubusercontent.com/PookiePepelsss/Airflow-UI/refs/heads/main/Source.luau"))()
+local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Airflow-UI/refs/heads/main/Source.luau"))()
 
-Airflow:LoadFont({ Name = "ValleySans" }) -- downloads the font once into workspace/AirFlowFonts and uses it everywhere
-
-local Window = Airflow:CreateWindow({
-    Name = "Airflow",
+local Window = Astris:CreateWindow({
+    Name = "Astris Hub",
     LoadingSubtitle = "Example",
     Theme = "Default", -- or "Midnight", "Moss", "Ember", "Rose", "Mono", or a table of colours
     ToggleUIKeybind = "RightControl", -- key that hides and shows the window
     -- examples: "RightShift", "RightControl", "LeftAlt", "Insert", "Home", "F1", "Backquote"
     -- Enum.KeyCode values also work: ToggleUIKeybind = Enum.KeyCode.RightShift
-    ConfigurationSaving = { Enabled = true, FolderName = "AirflowExample", FileName = "default" },
+    ConfigurationSaving = { Enabled = true, FolderName = "AstrisExample", FileName = "default" },
     Home = {
         Name = "Home",
-        Stats = { "FPS", "Ping", "Executor", "Game", "Region", "Time" },
+        Stats = { "FPS", "Ping", "Executor", "Game", "Server", "Time" },
         Pages = { -- extra tabs beside the info one
             {
                 Name = "Changelog",
@@ -26,7 +24,7 @@ local Window = Airflow:CreateWindow({
             {
                 Name = "Info",
                 Icon = "info",
-                Content = "Airflow UI example. Everything on the Elements tab just prints, so you can click around safely.",
+                Content = "Astris UI example. Everything on the Elements tab just prints, so you can click around safely.",
             },
         },
     },
@@ -198,7 +196,7 @@ for _, Type in ipairs({ "Info", "Success", "Warning", "Error" }) do
     Popups:CreateButton({
         Name = Type .. " notification",
         Callback = function()
-            Airflow:Notify({
+            Astris:Notify({
                 Title = Type,
                 Content = "Example " .. string.lower(Type) .. " notification",
                 Icon = "bell",
@@ -212,7 +210,7 @@ end
 Popups:CreateButton({
     Name = "Example confirm",
     Callback = function()
-        Airflow:Confirm({
+        Astris:Confirm({
             Title = "Example confirm",
             Content = "Are you sure?",
             ConfirmText = "Yes",
@@ -227,7 +225,7 @@ Popups:CreateButton({
 Popups:CreateButton({
     Name = "Example dialog",
     Callback = function()
-        Airflow:Dialog({
+        Astris:Dialog({
             Title = "Example dialog",
             Content = "Pick one.",
             Buttons = {
@@ -241,35 +239,6 @@ Popups:CreateButton({
 
 Window:CreateTab({ Name = "Empty", Desc = "Nothing in here", Icon = "package" })
 
-local Settings = Window:CreateTab({ Name = "Settings", Icon = "settings" })
-
-Settings:CreateSection("Interface")
-
-Settings:CreateThemePicker({ Flag = "Theme" })
-
-Settings:CreateKeybind({
-    Name = "Toggle UI",
-    CurrentKeybind = "RightControl",
-    OnChanged = function(Key)
-        Window:SetKeybind(Key)
-    end,
-})
-
-Settings:CreateConfigManager({ Name = "Configs" })
-
-Settings:CreateButton({
-    Name = "Unload",
-    Icon = "power",
-    Style = "Danger",
-    Callback = function()
-        Airflow:Confirm({
-            Title = "Unload?",
-            ConfirmText = "Unload",
-            Callback = function()
-                Window:Destroy()
-            end,
-        })
-    end,
-})
+-- Server, ESP and Settings tabs are built in. Pass Server = false, Esp = false or Settings = false to drop one.
 
 Window:LoadConfig()
