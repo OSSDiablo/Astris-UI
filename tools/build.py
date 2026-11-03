@@ -4,8 +4,6 @@ from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 logo = (root / "assets" / "logo.png").read_bytes()
 src = (root / "src" / "AstrisUI.luau").read_text()
-shadow = (root / "assets" / "shadow.png").read_bytes()
-src = src.replace("@@SHADOW@@", base64.b64encode(shadow).decode()).replace("@@SHADOWVER@@", hashlib.sha1(shadow).hexdigest()[:8])
 src = src.replace("@@LOGO@@", base64.b64encode(logo).decode()).replace("@@LOGOVER@@", hashlib.sha1(logo).hexdigest()[:8])
 darklua = next(p for p in (root.home() / ".rokit/tool-storage/seaofvoices/darklua").rglob("darklua") if p.is_file())
 with tempfile.TemporaryDirectory() as t:
