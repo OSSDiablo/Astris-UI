@@ -3745,15 +3745,8 @@ function h:_createOpenButton(k)
 		b(logo, { ImageTransparency = open and 0 or 0.3 }, t or 0.28)
 	end
 	self:_syncOpenButton(0)
-	-- sits above the window's top centre until the player drags it somewhere, then stays where they put it
-	local file = "AstrisUI/toggle.json"
+	-- starts above the window's top centre every time; a drag only moves it for this session
 	local free
-	pcall(function()
-		if isfile and isfile(file) then
-			local t = H:JSONDecode(readfile(file))
-			free = Vector2.new(t.x, t.y)
-		end
-	end)
 	local function place(x, y)
 		btn.Position = UDim2.fromOffset(
 			math.floor(math.clamp(x, size / 2, math.max(d.AbsoluteSize.X - size / 2, size / 2)) + 0.5),
@@ -3815,12 +3808,6 @@ function h:_createOpenButton(k)
 			if not moved then
 				return self:Toggle()
 			end
-			pcall(function()
-				if isfolder and makefolder and not isfolder("AstrisUI") then
-					makefolder("AstrisUI")
-				end
-				writefile(file, H:JSONEncode({ x = free.X, y = free.Y }))
-			end)
 		end)
 	)
 end

@@ -897,16 +897,14 @@ BackgroundTransparency=1,ImageColor3=a.Text,ScaleType=Enum.ScaleType.Fit,ZIndex=
 _syncOpenButton(t)local open=self.Open~=false b(btn,{BackgroundTransparency=open
 and 0 or 0.3},t or 0.28)b(stroke,{Transparency=open and 0 or 0.4},t or 0.28)b(
 logo,{ImageTransparency=open and 0 or 0.3},t or 0.28)end self:_syncOpenButton(0)
-local file='AstrisUI/toggle.json'local free pcall(function()if isfile and
-isfile(file)then local t=H:JSONDecode(readfile(file))free=Vector2.new(t.x,t.y)
-end end)local function place(x,y)btn.Position=UDim2.fromOffset(math.floor(math.
-clamp(x,size/2,math.max(d.AbsoluteSize.X-size/2,size/2))+0.5),math.floor(math.
-clamp(y,size,math.max(d.AbsoluteSize.Y,size))+0.5))end local root=self.Root self
-:_listen('Render',function()if free then return place(free.X,free.Y)end local sc
-=self.Scale.Scale if sc<=0 then return end local rest=(self._fitScale or 1)/sc
-local mid=root.AbsolutePosition+root.AbsoluteSize/2-d.AbsolutePosition local top
-=mid.Y-root.AbsoluteSize.Y/2*rest-gap local x=math.clamp(mid.X,size/2+4,d.
-AbsoluteSize.X-size/2-4)btn.Position=UDim2.fromOffset(math.floor(x+0.5),math.
+local free local function place(x,y)btn.Position=UDim2.fromOffset(math.floor(
+math.clamp(x,size/2,math.max(d.AbsoluteSize.X-size/2,size/2))+0.5),math.floor(
+math.clamp(y,size,math.max(d.AbsoluteSize.Y,size))+0.5))end local root=self.Root
+self:_listen('Render',function()if free then return place(free.X,free.Y)end
+local sc=self.Scale.Scale if sc<=0 then return end local rest=(self._fitScale or
+1)/sc local mid=root.AbsolutePosition+root.AbsoluteSize/2-d.AbsolutePosition
+local top=mid.Y-root.AbsoluteSize.Y/2*rest-gap local x=math.clamp(mid.X,size/2+4
+,d.AbsoluteSize.X-size/2-4)btn.Position=UDim2.fromOffset(math.floor(x+0.5),math.
 floor(math.max(top,size+4)+0.5))end)btn.MouseEnter:Connect(function()b(stroke,{
 Color=a.StrokeHover},0.15)end)btn.MouseLeave:Connect(function()b(stroke,{Color=a
 .Stroke},0.15)end)local down,moved,grab,start=false,false,Vector2.zero,Vector2.
@@ -918,46 +916,43 @@ end moved=true local at=m-grab-d.AbsolutePosition free=Vector2.new(math.clamp(at
 .X,size/2,d.AbsoluteSize.X-size/2),math.clamp(at.Y,size,d.AbsoluteSize.Y))place(
 free.X,free.Y)end))table.insert(self._connections,p.InputEnded:Connect(function(
 a)if not(down and r(a))then return end down=false if not moved then return self:
-Toggle()end pcall(function()if isfolder and makefolder and not isfolder(
-'AstrisUI')then makefolder('AstrisUI')end writefile(file,H:JSONEncode({x=free.X,
-y=free.Y}))end)end))end function h:_enableResize(i)local j=self.MaxSize or
-Vector2.new(math.huge,math.huge)local f=c('Frame',{AnchorPoint=Vector2.new(0.5,
-0.5),Position=UDim2.new(1,4,1,4),Size=UDim2.fromOffset(32,32),
-BackgroundTransparency=1,Active=true,ZIndex=20,Parent=self.Root})self._grip=f
-local g,d=c('ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(
-0.5,-16,0.5,-16),Size=UDim2.fromOffset(96,96),BackgroundTransparency=1,Image=
-'rbxassetid://120997033468887',ImageColor3=a.Text,ImageTransparency=0.8,ZIndex=
-20,Parent=f}),false local h=self.Root.Size local k=Vector2.zero local e f.
-InputBegan:Connect(function(a)if r(a)then d=true h=self.Root.Size k=s()b(g,{
-ImageTransparency=0.35},0.1)end end)f.MouseEnter:Connect(function()if not d then
-b(g,{ImageTransparency=0.35},0.1)end end)f.MouseLeave:Connect(function()if not d
-then b(g,{ImageTransparency=0.8},0.17)end end)table.insert(self._connections,p.
-InputEnded:Connect(function(a)if d and r(a)then d=false b(g,{ImageTransparency=
-0.8},0.17)if e then self.Root.Size=UDim2.fromOffset(e.X,e.Y)e=nil end self:
-_fitToScreen()self:_clampToScreen()end end))table.insert(self._frameSteps,
-function(f)if not d then return end local b=(s()-k)/self.Scale.Scale e=Vector2.
-new(math.clamp(h.X.Offset+b.X*2,i.X,j.X),math.clamp(h.Y.Offset+b.Y*2,i.Y,j.Y))
-local c=Vector2.new(self.Root.Size.X.Offset,self.Root.Size.Y.Offset)local g=1-
-math.exp(-f*35)local a=c:Lerp(e,g)a=Vector2.new(math.floor(a.X+0.5),math.floor(a
-.Y+0.5))if a~=c then self.Root.Size=UDim2.fromOffset(a.X,a.Y)end end)end
-local function aF(a)a=tostring(a or''):gsub('[%c/\\:%*%?"<>|]',''):gsub('%.%.+',
-'.'):gsub('^[%s%.]+',''):gsub('[%s%.]+$','')if a==''then return nil end return a
-end local function Y(b,c)local a=aF(c)if not a then return nil,
-'invalid config name'end return b.ConfigFolder..'/'..a..'.json',a end
-local function Z()local a='function'return type(writefile)==a and type(readfile)
-==a and type(isfile)==a end local function aG(a)if type(isfolder)=='function'and
-type(makefolder)=='function'and not isfolder(a)then makefolder(a)end end
-local function aH(c)local b=c._type local a=c:Get()if b=='Keybind'then return{
-Type=b,Value=a and a.Name or nil}elseif b=='ColorPicker'then return{Type=b,Value
-={a.R,a.G,a.B}}end return{Type=b,Value=a}end local function aI(b,e,c)local d=b.
-_type local a=e.Value if d=='Keybind'then b:Set(F(a),c)elseif d=='ColorPicker'
-then if type(a)=='table'then b:Set(Color3.new(a[1],a[2],a[3]),c)end elseif a~=
-nil then b:Set(a,c)end end function h:SaveConfig(e)if not Z()then return false,
-'file API unavailable'end local a,b=Y(self,e or self.ConfigName)if not a then
-return false,b end local c={}for b,a in pairs(self.Flags)do if a._type and type(
-a.Get)=='function'then c[b]=aH(a)end end local d,f=pcall(function()aG(self.
-ConfigFolder)writefile(a,H:JSONEncode(c))end)if d then self.ConfigName=b end
-return d,f end function h:LoadConfig(a,e)if not Z()then return false,
+Toggle()end end))end function h:_enableResize(i)local j=self.MaxSize or Vector2.
+new(math.huge,math.huge)local f=c('Frame',{AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.new(1,4,1,4),Size=UDim2.fromOffset(32,32),BackgroundTransparency=
+1,Active=true,ZIndex=20,Parent=self.Root})self._grip=f local g,d=c('ImageLabel',
+{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,-16,0.5,-16),Size=UDim2
+.fromOffset(96,96),BackgroundTransparency=1,Image='rbxassetid://120997033468887'
+,ImageColor3=a.Text,ImageTransparency=0.8,ZIndex=20,Parent=f}),false local h=
+self.Root.Size local k=Vector2.zero local e f.InputBegan:Connect(function(a)if
+r(a)then d=true h=self.Root.Size k=s()b(g,{ImageTransparency=0.35},0.1)end end)f
+.MouseEnter:Connect(function()if not d then b(g,{ImageTransparency=0.35},0.1)end
+end)f.MouseLeave:Connect(function()if not d then b(g,{ImageTransparency=0.8},
+0.17)end end)table.insert(self._connections,p.InputEnded:Connect(function(a)if d
+and r(a)then d=false b(g,{ImageTransparency=0.8},0.17)if e then self.Root.Size=
+UDim2.fromOffset(e.X,e.Y)e=nil end self:_fitToScreen()self:_clampToScreen()end
+end))table.insert(self._frameSteps,function(f)if not d then return end local b=(
+s()-k)/self.Scale.Scale e=Vector2.new(math.clamp(h.X.Offset+b.X*2,i.X,j.X),math.
+clamp(h.Y.Offset+b.Y*2,i.Y,j.Y))local c=Vector2.new(self.Root.Size.X.Offset,self
+.Root.Size.Y.Offset)local g=1-math.exp(-f*35)local a=c:Lerp(e,g)a=Vector2.new(
+math.floor(a.X+0.5),math.floor(a.Y+0.5))if a~=c then self.Root.Size=UDim2.
+fromOffset(a.X,a.Y)end end)end local function aF(a)a=tostring(a or''):gsub(
+'[%c/\\:%*%?"<>|]',''):gsub('%.%.+','.'):gsub('^[%s%.]+',''):gsub('[%s%.]+$','')
+if a==''then return nil end return a end local function Y(b,c)local a=aF(c)if
+not a then return nil,'invalid config name'end return b.ConfigFolder..'/'..a..
+'.json',a end local function Z()local a='function'return type(writefile)==a and
+type(readfile)==a and type(isfile)==a end local function aG(a)if type(isfolder)
+=='function'and type(makefolder)=='function'and not isfolder(a)then makefolder(a
+)end end local function aH(c)local b=c._type local a=c:Get()if b=='Keybind'then
+return{Type=b,Value=a and a.Name or nil}elseif b=='ColorPicker'then return{Type=
+b,Value={a.R,a.G,a.B}}end return{Type=b,Value=a}end local function aI(b,e,c)
+local d=b._type local a=e.Value if d=='Keybind'then b:Set(F(a),c)elseif d==
+'ColorPicker'then if type(a)=='table'then b:Set(Color3.new(a[1],a[2],a[3]),c)end
+elseif a~=nil then b:Set(a,c)end end function h:SaveConfig(e)if not Z()then
+return false,'file API unavailable'end local a,b=Y(self,e or self.ConfigName)if
+not a then return false,b end local c={}for b,a in pairs(self.Flags)do if a.
+_type and type(a.Get)=='function'then c[b]=aH(a)end end local d,f=pcall(function
+()aG(self.ConfigFolder)writefile(a,H:JSONEncode(c))end)if d then self.ConfigName
+=b end return d,f end function h:LoadConfig(a,e)if not Z()then return false,
 'file API unavailable'end local b,c=Y(self,a or self.ConfigName)if not b then
 return false,c end a=c if not isfile(b)then return false,'no config named '..a
 end local f,d=pcall(function()return H:JSONDecode(readfile(b))end)if not f or
