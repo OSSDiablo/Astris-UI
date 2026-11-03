@@ -189,20 +189,21 @@ e.Themes = {
 e.Theme = table.clone(e.Themes.Default)
 e.ThemeName = "Default"
 e.Assets = { Shadow = "rbxassetid://6014261993", Glow = "rbxassetid://8992230677", Logo = "triangle" }
-do
-	local LOGO = "@@LOGO@@"
-	pcall(function()
+e.Assets.ShadowSlice = Rect.new(49, 49, 450, 450)
+-- writes a baked base64 png to the workspace folder and returns a custom asset id
+local function bake(data, path)
+	local ok, id = pcall(function()
 		if not (writefile and getcustomasset) then
-			return
+			return nil
 		end
 		local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 		local map = {}
 		for i = 1, 64 do
 			map[chars:byte(i)] = i - 1
 		end
-		local out = table.create(#LOGO // 4)
-		for i = 1, #LOGO, 4 do
-			local a, b, c, d = LOGO:byte(i, i + 3)
+		local out = table.create(#data // 4)
+		for i = 1, #data, 4 do
+			local a, b, c, d = data:byte(i, i + 3)
 			local v = map[a] * 262144 + map[b] * 4096 + (map[c] or 0) * 64 + (map[d] or 0)
 			if not map[c] then
 				out[#out + 1] = string.char(v // 65536)
@@ -215,12 +216,21 @@ do
 		if isfolder and makefolder and not isfolder("AstrisUI") then
 			makefolder("AstrisUI")
 		end
-		local path = "AstrisUI/logo_@@LOGOVER@@.png"
 		if not (isfile and isfile(path)) then
 			writefile(path, table.concat(out))
 		end
-		e.Assets.Logo = getcustomasset(path)
+		return getcustomasset(path)
 	end)
+	return ok and id or nil
+end
+e.Assets.Logo = bake("@@LOGO@@", "AstrisUI/logo_@@LOGOVER@@.png") or e.Assets.Logo
+-- soft shadow drawn around a radius 14 rounded rect, so it follows the window corners
+do
+	local id = bake("@@SHADOW@@", "AstrisUI/shadow_@@SHADOWVER@@.png")
+	if id then
+		e.Assets.Shadow = id
+		e.Assets.ShadowSlice = Rect.new(60, 60, 140, 140)
+	end
 end
 local E
 local function P()
@@ -2851,7 +2861,7 @@ function e.Window(ac, k)
 			ImageColor3 = Color3.new(0, 0, 0),
 			ImageTransparency = 0.6,
 			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(49, 49, 450, 450),
+			SliceCenter = v.ShadowSlice,
 			Parent = y,
 		}
 	)
@@ -5858,7 +5868,7 @@ function h:Notify(d)
 		ImageColor3 = Color3.new(0, 0, 0),
 		ImageTransparency = 1,
 		ScaleType = Enum.ScaleType.Slice,
-		SliceCenter = Rect.new(49, 49, 450, 450),
+		SliceCenter = v.ShadowSlice,
 		ZIndex = 0,
 		Parent = mover,
 	})
