@@ -1,4 +1,4 @@
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Airflow-UI/refs/heads/main/Source.luau"))()
+local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/refs/heads/main/Source.luau"))()
 
 local Window = Astris:CreateWindow({
     Name = "Astris Hub",

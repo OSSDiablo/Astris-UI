@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ossdiablo.github.io/Airflow-UI/"><b>Website and full guide</b></a>
+  <a href="https://ossdiablo.github.io/Astris-UI/"><b>Website and full guide</b></a>
 </p>
 
 ---
@@ -20,7 +20,7 @@
 Put this at the top of your script.
 
 ```lua
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Airflow-UI/main/Source.luau"))()
+local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
 ```
 
 ## 2. Make a window
@@ -111,7 +111,7 @@ Window:LoadConfig() -- always last
 ## Full example
 
 ```lua
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Airflow-UI/main/Source.luau"))()
+local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
 
 local Window = Astris:CreateWindow({
     Name = "My Hub",
