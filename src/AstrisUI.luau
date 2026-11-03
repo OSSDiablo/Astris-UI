@@ -3525,37 +3525,33 @@ function h:_showLoader(e)
 			Parent = w,
 		}
 	)
-	local x = g(d, UDim.new(0, 12))
+	d.Size = UDim2.fromOffset(300, 176)
+	local x = g(d, UDim.new(0, 14))
 	local y = i(d, a.Stroke, 1)
 	T(d)
-	z(d, UDim2.fromOffset(320, 140), UDim2.new(1, -20, 0, -20), 0.85, 90)
-	z(d, UDim2.fromOffset(240, 100), UDim2.new(0, 10, 1, 10), 0.9, 270)
 	local p = c("UIScale", { Scale = 0.92, Parent = d })
-	local q = c(
-		"ImageLabel",
+	-- shadow lives inside the canvas group, so it is clipped; kept only so the fade code below has a target
+	local q = c("ImageLabel", { BackgroundTransparency = 1, ImageTransparency = 1, Size = UDim2.fromOffset(0, 0), Parent = d })
+	-- logo in an app-icon tile, outline pulses in the accent while loading
+	local r = c(
+		h,
 		{
-			Position = UDim2.fromOffset(-25, -25),
-			Size = UDim2.new(1, 50, 1, 50),
-			BackgroundTransparency = 1,
-			Image = v.Shadow,
-			ImageColor3 = Color3.new(0, 0, 0),
-			ImageTransparency = 1,
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(49, 49, 450, 450),
-			ZIndex = 0,
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 24),
+			Size = UDim2.fromOffset(48, 48),
+			BackgroundColor3 = a.Surface2,
+			BorderSizePixel = 0,
 			Parent = d,
 		}
 	)
-	local r = c(
-		h,
-		{ Position = UDim2.fromOffset(24, 26), Size = UDim2.fromOffset(40, 40), BackgroundTransparency = 1, Parent = d }
-	)
+	g(r, UDim.new(0, 12))
+	local ring = i(r, a.Stroke, 1)
 	local n = c(
 		"ImageLabel",
 		{
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(14, 14),
 			Rotation = -14,
 			BackgroundTransparency = 1,
 			ImageColor3 = a.Text,
@@ -3566,29 +3562,43 @@ function h:_showLoader(e)
 	)
 	u(n, e.Icon or v.Logo)
 	task.delay(0.15, function()
-		b(n, { Size = UDim2.fromScale(0.85, 0.85), Rotation = 0 }, 0.6, Enum.EasingStyle.Back)
+		b(n, { Size = UDim2.fromOffset(28, 28), Rotation = 0 }, 0.6, Enum.EasingStyle.Back)
 		b(n, { ImageTransparency = 0 }, 0.4)
+		b(ring, { Color = a.Accent, Transparency = 0.5 }, 0.5)
+	end)
+	local pulse = aa:Create(
+		ring,
+		TweenInfo.new(0.9, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true, 0.6),
+		{ Transparency = 0.85 }
+	)
+	task.delay(0.65, function()
+		if d.Parent then
+			pulse:Play()
+		end
 	end)
 	f({
-		Position = UDim2.fromOffset(78, 30),
-		Size = UDim2.new(1, -100, 0, 22),
+		Position = UDim2.fromOffset(24, 84),
+		Size = UDim2.new(1, -48, 0, 22),
 		Text = e.LoadingTitle or e.Title or "Astris Hub",
-		TextSize = 20,
+		TextSize = 18,
+		FontFace = j.Bold,
+		TextXAlignment = Enum.TextXAlignment.Center,
 		Parent = d,
 	})
 	local A = f({
-		Position = UDim2.fromOffset(78, 52),
-		Size = UDim2.new(1, -100, 0, 16),
+		Position = UDim2.fromOffset(24, 108),
+		Size = UDim2.new(1, -48, 0, 16),
 		Text = e.LoadingText or e.Subtitle or "Loading",
 		TextSize = 13,
 		FontFace = j.Regular,
 		TextColor3 = a.Muted,
+		TextXAlignment = Enum.TextXAlignment.Center,
 		Parent = d,
 	})
 	local k = c(
 		h,
 		{
-			Position = UDim2.new(0, 24, 1, -30),
+			Position = UDim2.new(0, 24, 1, -32),
 			Size = UDim2.new(1, -48, 0, 4),
 			BackgroundColor3 = a.Surface3,
 			BorderSizePixel = 0,
@@ -3605,7 +3615,7 @@ function h:_showLoader(e)
 			Position = UDim2.fromScale(-0.4, 0),
 			Size = UDim2.fromScale(0.4, 1),
 			BackgroundColor3 = Color3.new(1, 1, 1),
-			BackgroundTransparency = 0.6,
+			BackgroundTransparency = 0.55,
 			BorderSizePixel = 0,
 			ZIndex = 2,
 			Parent = k,
@@ -3636,8 +3646,18 @@ function h:_showLoader(e)
 	local t = e.LoadingSteps or { "Preparing interface", "Loading icons", "Almost there" }
 	for a, b in ipairs(t) do
 		task.delay(m * (a - 1) / #t, function()
-			if d.Parent then
+			if d.Parent and A.Text ~= b then
+				-- old step slides up and out, new one rises in
+				local base = UDim2.fromOffset(24, 108)
+				local t = aa:Create(A, TweenInfo.new(0.14, Enum.EasingStyle.Quint, Enum.EasingDirection.In), { TextTransparency = 1, Position = base - UDim2.fromOffset(0, 4) })
+				t:Play()
+				t.Completed:Wait()
+				if not d.Parent then
+					return
+				end
 				A.Text = b
+				A.Position = base + UDim2.fromOffset(0, 4)
+				aa:Create(A, TweenInfo.new(0.22, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), { TextTransparency = 0, Position = base }):Play()
 			end
 		end)
 	end
@@ -3645,14 +3665,15 @@ function h:_showLoader(e)
 		b(l, { Size = UDim2.fromScale(1, 1) }, 0.25, Enum.EasingStyle.Quint)
 		task.delay(0.25, function()
 			s:Cancel()
+			pulse:Cancel()
+			b(ring, { Transparency = 1 }, 0.15)
+			b(r, { BackgroundTransparency = 1 }, 0.15)
 			for c, a in ipairs(d:GetChildren()) do
 				if a:IsA("TextLabel") then
 					b(a, { TextTransparency = 1 }, 0.15)
 				end
 			end
-			for c, a in ipairs(r:GetChildren()) do
-				b(a, { ImageTransparency = 1 }, 0.15)
-			end
+			b(n, { ImageTransparency = 1 }, 0.15)
 			b(k, { BackgroundTransparency = 1 }, 0.15)
 			b(l, { BackgroundTransparency = 1 }, 0.15)
 			b(o, { BackgroundTransparency = 1 }, 0.1)
@@ -3664,7 +3685,7 @@ function h:_showLoader(e)
 				0.5,
 				Enum.EasingStyle.Quint
 			)
-			b(x, { CornerRadius = UDim.new(0, 10) }, 0.5, Enum.EasingStyle.Quint)
+			b(x, { CornerRadius = UDim.new(0, 14) }, 0.5, Enum.EasingStyle.Quint)
 			b(p, { Scale = 1 }, 0.5, Enum.EasingStyle.Quint)
 			task.delay(0.28, function()
 				self:_playIntro(true)

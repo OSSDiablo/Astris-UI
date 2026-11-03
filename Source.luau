@@ -832,30 +832,32 @@ Tabs*0.05,function()if self.CurrentTab then self:_placeIndicator(self.CurrentTab
 or 1.6 local w=self.Gui local d=c('CanvasGroup',{AnchorPoint=Vector2.new(0.5,0.5
 ),Position=UDim2.new(0.5,0,0.5,16),Size=UDim2.fromOffset(300,132),
 BackgroundColor3=a.Background,BorderSizePixel=0,GroupTransparency=1,ZIndex=10,
-Parent=w})local x=g(d,UDim.new(0,12))local y=i(d,a.Stroke,1)T(d)z(d,UDim2.
-fromOffset(320,140),UDim2.new(1,-20,0,-20),0.85,90)z(d,UDim2.fromOffset(240,100)
-,UDim2.new(0,10,1,10),0.9,270)local p=c('UIScale',{Scale=0.92,Parent=d})local q=
-c('ImageLabel',{Position=UDim2.fromOffset(-25,-25),Size=UDim2.new(1,50,1,50),
-BackgroundTransparency=1,Image=v.Shadow,ImageColor3=Color3.new(0,0,0),
-ImageTransparency=1,ScaleType=Enum.ScaleType.Slice,SliceCenter=Rect.new(49,49,
-450,450),ZIndex=0,Parent=d})local r=c(h,{Position=UDim2.fromOffset(24,26),Size=
-UDim2.fromOffset(40,40),BackgroundTransparency=1,Parent=d})local n=c(
-'ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5)
-,Size=UDim2.fromScale(0.5,0.5),Rotation=-14,BackgroundTransparency=1,ImageColor3
-=a.Text,ImageTransparency=1,ScaleType=Enum.ScaleType.Fit,Parent=r})u(n,e.Icon or
-v.Logo)task.delay(0.15,function()b(n,{Size=UDim2.fromScale(0.85,0.85),Rotation=0
-},0.6,Enum.EasingStyle.Back)b(n,{ImageTransparency=0},0.4)end)f({Position=UDim2.
-fromOffset(78,30),Size=UDim2.new(1,-100,0,22),Text=e.LoadingTitle or e.Title or
-'Astris Hub',TextSize=20,Parent=d})local A=f({Position=UDim2.fromOffset(78,52),
-Size=UDim2.new(1,-100,0,16),Text=e.LoadingText or e.Subtitle or'Loading',
-TextSize=13,FontFace=j.Regular,TextColor3=a.Muted,Parent=d})local k=c(h,{
-Position=UDim2.new(0,24,1,-30),Size=UDim2.new(1,-48,0,4),BackgroundColor3=a.
-Surface3,BorderSizePixel=0,ClipsDescendants=true,Parent=d})g(k,UDim.new(1,0))
-local l=c(h,{Size=UDim2.fromScale(0,1),BackgroundColor3=a.Accent,BorderSizePixel
-=0,Parent=k})g(l,UDim.new(1,0))local o=c(h,{Position=UDim2.fromScale(-0.4,0),
-Size=UDim2.fromScale(0.4,1),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=0.6,BorderSizePixel=0,ZIndex=2,Parent=k})c('UIGradient',{
-Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),
+Parent=w})d.Size=UDim2.fromOffset(300,176)local x=g(d,UDim.new(0,14))local y=i(d
+,a.Stroke,1)T(d)local p=c('UIScale',{Scale=0.92,Parent=d})local q=c('ImageLabel'
+,{BackgroundTransparency=1,ImageTransparency=1,Size=UDim2.fromOffset(0,0),Parent
+=d})local r=c(h,{AnchorPoint=Vector2.new(0.5,0),Position=UDim2.new(0.5,0,0,24),
+Size=UDim2.fromOffset(48,48),BackgroundColor3=a.Surface2,BorderSizePixel=0,
+Parent=d})g(r,UDim.new(0,12))local ring=i(r,a.Stroke,1)local n=c('ImageLabel',{
+AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.
+fromOffset(14,14),Rotation=-14,BackgroundTransparency=1,ImageColor3=a.Text,
+ImageTransparency=1,ScaleType=Enum.ScaleType.Fit,Parent=r})u(n,e.Icon or v.Logo)
+task.delay(0.15,function()b(n,{Size=UDim2.fromOffset(28,28),Rotation=0},0.6,Enum
+.EasingStyle.Back)b(n,{ImageTransparency=0},0.4)b(ring,{Color=a.Accent,
+Transparency=0.5},0.5)end)local pulse=aa:Create(ring,TweenInfo.new(0.9,Enum.
+EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true,0.6),{Transparency=0.85})
+task.delay(0.65,function()if d.Parent then pulse:Play()end end)f({Position=UDim2
+.fromOffset(24,84),Size=UDim2.new(1,-48,0,22),Text=e.LoadingTitle or e.Title or
+'Astris Hub',TextSize=18,FontFace=j.Bold,TextXAlignment=Enum.TextXAlignment.
+Center,Parent=d})local A=f({Position=UDim2.fromOffset(24,108),Size=UDim2.new(1,-
+48,0,16),Text=e.LoadingText or e.Subtitle or'Loading',TextSize=13,FontFace=j.
+Regular,TextColor3=a.Muted,TextXAlignment=Enum.TextXAlignment.Center,Parent=d})
+local k=c(h,{Position=UDim2.new(0,24,1,-32),Size=UDim2.new(1,-48,0,4),
+BackgroundColor3=a.Surface3,BorderSizePixel=0,ClipsDescendants=true,Parent=d})g(
+k,UDim.new(1,0))local l=c(h,{Size=UDim2.fromScale(0,1),BackgroundColor3=a.Accent
+,BorderSizePixel=0,Parent=k})g(l,UDim.new(1,0))local o=c(h,{Position=UDim2.
+fromScale(-0.4,0),Size=UDim2.fromScale(0.4,1),BackgroundColor3=Color3.new(1,1,1)
+,BackgroundTransparency=0.55,BorderSizePixel=0,ZIndex=2,Parent=k})c('UIGradient'
+,{Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),
 NumberSequenceKeypoint.new(0.5,0),NumberSequenceKeypoint.new(1,1)}),Parent=o})b(
 d,{GroupTransparency=0,Position=UDim2.fromScale(0.5,0.5)},0.4,Enum.EasingStyle.
 Quint)b(p,{Scale=1},0.5,Enum.EasingStyle.Back)b(q,{ImageTransparency=0.6},0.4)
@@ -863,23 +865,29 @@ local s=aa:Create(o,TweenInfo.new(1.1,Enum.EasingStyle.Sine,Enum.EasingDirection
 .InOut,-1),{Position=UDim2.fromScale(1,0)})s:Play()b(l,{Size=UDim2.fromScale(
 0.85,1)},m*0.8,Enum.EasingStyle.Quart)task.spawn(P)local t=e.LoadingSteps or{
 'Preparing interface','Loading icons','Almost there'}for a,b in ipairs(t)do task
-.delay(m*(a-1)/#t,function()if d.Parent then A.Text=b end end)end task.delay(m,
-function()b(l,{Size=UDim2.fromScale(1,1)},0.25,Enum.EasingStyle.Quint)task.
-delay(0.25,function()s:Cancel()for c,a in ipairs(d:GetChildren())do if a:IsA(
-'TextLabel')then b(a,{TextTransparency=1},0.15)end end for c,a in ipairs(r:
-GetChildren())do b(a,{ImageTransparency=1},0.15)end b(k,{BackgroundTransparency=
-1},0.15)b(l,{BackgroundTransparency=1},0.15)b(o,{BackgroundTransparency=1},0.1)
-local a=self._fitScale or 1 local c=self.Root.Size b(d,{Size=UDim2.fromOffset(c.
-X.Offset*a,c.Y.Offset*a),Position=UDim2.fromScale(0.5,0.5)},0.5,Enum.EasingStyle
-.Quint)b(x,{CornerRadius=UDim.new(0,10)},0.5,Enum.EasingStyle.Quint)b(p,{Scale=1
-},0.5,Enum.EasingStyle.Quint)task.delay(0.28,function()self:_playIntro(true)b(d,
-{GroupTransparency=1},0.25)b(y,{Transparency=1},0.2)b(q,{ImageTransparency=1},
-0.2)end)task.delay(0.6,function()d:Destroy()end)end)end)end function h:
-_fitToScreen(d)local a=self.Gui.AbsoluteSize if a.X==0 or a.Y==0 then return end
-local c=self.Root.Size local e=math.min(1,(a.X-24)/math.max(c.X.Offset,1),(a.Y-
-24)/math.max(c.Y.Offset,1))self._fitScale=math.max(e,0.45)if self._introDone and
-self.Open then if d then self.Scale.Scale=self._fitScale else b(self.Scale,{
-Scale=self._fitScale},0.2)end end end function h:_clampToScreen()if not self.
+.delay(m*(a-1)/#t,function()if d.Parent and A.Text~=b then local base=UDim2.
+fromOffset(24,108)local t=aa:Create(A,TweenInfo.new(0.14,Enum.EasingStyle.Quint,
+Enum.EasingDirection.In),{TextTransparency=1,Position=base-UDim2.fromOffset(0,4)
+})t:Play()t.Completed:Wait()if not d.Parent then return end A.Text=b A.Position=
+base+UDim2.fromOffset(0,4)aa:Create(A,TweenInfo.new(0.22,Enum.EasingStyle.Quint,
+Enum.EasingDirection.Out),{TextTransparency=0,Position=base}):Play()end end)end
+task.delay(m,function()b(l,{Size=UDim2.fromScale(1,1)},0.25,Enum.EasingStyle.
+Quint)task.delay(0.25,function()s:Cancel()pulse:Cancel()b(ring,{Transparency=1},
+0.15)b(r,{BackgroundTransparency=1},0.15)for c,a in ipairs(d:GetChildren())do if
+a:IsA('TextLabel')then b(a,{TextTransparency=1},0.15)end end b(n,{
+ImageTransparency=1},0.15)b(k,{BackgroundTransparency=1},0.15)b(l,{
+BackgroundTransparency=1},0.15)b(o,{BackgroundTransparency=1},0.1)local a=self.
+_fitScale or 1 local c=self.Root.Size b(d,{Size=UDim2.fromOffset(c.X.Offset*a,c.
+Y.Offset*a),Position=UDim2.fromScale(0.5,0.5)},0.5,Enum.EasingStyle.Quint)b(x,{
+CornerRadius=UDim.new(0,14)},0.5,Enum.EasingStyle.Quint)b(p,{Scale=1},0.5,Enum.
+EasingStyle.Quint)task.delay(0.28,function()self:_playIntro(true)b(d,{
+GroupTransparency=1},0.25)b(y,{Transparency=1},0.2)b(q,{ImageTransparency=1},0.2
+)end)task.delay(0.6,function()d:Destroy()end)end)end)end function h:_fitToScreen
+(d)local a=self.Gui.AbsoluteSize if a.X==0 or a.Y==0 then return end local c=
+self.Root.Size local e=math.min(1,(a.X-24)/math.max(c.X.Offset,1),(a.Y-24)/math.
+max(c.Y.Offset,1))self._fitScale=math.max(e,0.45)if self._introDone and self.
+Open then if d then self.Scale.Scale=self._fitScale else b(self.Scale,{Scale=
+self._fitScale},0.2)end end end function h:_clampToScreen()if not self.
 KeepOnScreen then return end local a=self.Gui.AbsoluteSize local d=self.Root
 local c=d.AbsoluteSize/2 local e=d.AbsolutePosition+c-self.Gui.AbsolutePosition
 local f=Vector2.new(math.clamp(e.X,math.min(c.X,a.X/2),math.max(a.X-c.X,a.X/2)),
