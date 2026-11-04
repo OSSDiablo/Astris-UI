@@ -187,6 +187,7 @@ local Mic = Elements:CreateMic({
     Name = "Anti VC ban",
     Methods = { "Method 1", "Method 2" },
     Notice = "Method 1 does not work on Xeno and Solara",
+    Cooldown = 2, -- optional: seconds of loading before it turns on or off, or { On = 3, Off = 1 }
     Flag = "ExampleMic",
     Callback = function(Enabled, Method)
         print("mic", Enabled, Method)

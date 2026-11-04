@@ -654,11 +654,11 @@ paint(animate)local on=el.Value local t=animate and 0.25 or 0 b(btn,{
 BackgroundColor3=on and a.Accent or a.Surface3},t)b(btnStroke,{Color=on and a.
 Accent or a.Stroke},t)b(glow,{ImageTransparency=on and 0.7 or 1},t)b(sw,{
 BackgroundColor3=on and a.Accent or a.Surface3},t)b(knob,{Position=on and UDim2.
-new(0,swW-3-knobW,0.5,0)or UDim2.new(0,3,0.5,0),BackgroundColor3=on and a.
-AccentDark or a.Muted},t,Enum.EasingStyle.Back)u(icon,on and'mic'or'mic-off')b(
-icon,{ImageColor3=on and a.AccentDark or a.Muted},t)if not custom then status.
-Text=on and(opts.OnText or'Protected')or(opts.OffText or'Off')b(dot,{
-BackgroundColor3=on and a.Accent or a.Muted},t)b(status,{TextColor3=on and a.
+new(0,swW-3-knobW,0.5,0)or UDim2.new(0,3,0.5,0)},t,Enum.EasingStyle.Back)b(knob,
+{BackgroundColor3=on and a.AccentDark or a.Muted},t)u(icon,on and'mic'or
+'mic-off')b(icon,{ImageColor3=on and a.AccentDark or a.Muted},t)if not custom
+then status.Text=on and(opts.OnText or'Protected')or(opts.OffText or'Off')b(dot,
+{BackgroundColor3=on and a.Accent or a.Muted},t)b(status,{TextColor3=on and a.
 Text or a.Muted},t)end for _,bar in ipairs(bars)do b(bar,{BackgroundColor3=on
 and a.Accent or a.Surface3},t)end end local seg,pills=nil,{}local pill
 local function paintMethod(animate)if not seg then return end for idx,name in
@@ -684,43 +684,55 @@ Callback,on,el.Method)end end function el:Get()return el.Value end function el:
 SetMethod(name,silent)if not methods or name==el.Method or not table.find(
 methods,name)then return end el.Method=name paintMethod(true)if not silent then
 l(opts.OnMethod,name)if el.Value then l(opts.Callback,true,name)end end end
-function el:SetStatus(text,kind)custom=text~=nil if not custom then return
-paint(true)end local col=kind and a[kind]or a.Text status.Text=tostring(text)b(
-dot,{BackgroundColor3=col},0.2)b(status,{TextColor3=kind and col or a.Text},0.2)
-end function el:SetLevel(x)el._manual=true el.Level=math.clamp(tonumber(x)or 0,0
-,1)end function el:SetNotice(text)if notice then notice.Text=tostring(text)end
-end function el:SetTitle(text)title.Text=tostring(text)end local analyzer if
-opts.Meter~=false then pcall(function()local input=J:FindFirstChildWhichIsA(
-'AudioDeviceInput')if input then analyzer=Instance.new('AudioAnalyzer')analyzer.
-Parent=input local wire=Instance.new('Wire')wire.SourceInstance=input wire.
-TargetInstance=analyzer wire.Parent=analyzer end end)end local shown,clock={},0
-local hb=ab.Heartbeat:Connect(function(dt)if not card.Parent or not card.Visible
-then return end clock+=dt local level=el.Level if analyzer and not el._manual
-then local ok,rms=pcall(function()return analyzer.RmsLevel end)level=ok and math
-.clamp((rms or 0)*5,0,1)or 0 end for n,bar in ipairs(bars)do local wave=0.55+
-0.45*math.sin(clock*9+n*1.3)*math.sin(clock*3.7+n*0.6)local target=4+20*level*
-math.clamp(wave,0.15,1)shown[n]=(shown[n]or 4)+(target-(shown[n]or 4))*math.min(
-dt*18,1)bar.Size=UDim2.fromOffset(3,math.floor(shown[n]+0.5))end end)table.
-insert(el._listeners,function()hb:Disconnect()if analyzer then analyzer:Destroy(
-)end end)local function flip()if not el.Locked then el:Set(not el.Value)end end
-btn.MouseButton1Click:Connect(flip)sw.MouseButton1Click:Connect(flip)paint(false
-)paintMethod(false)local out=q(self,opts,el,card,'Mic')if el.Value then l(opts.
-Callback,true,el.Method)end return out end function k:ConfigManager(d)d=n(d,{})
-local a=self.Window local b={}self:Section(d.Name or'Configs')local e=self:
-Input({Name='Config name',Placeholder=a.ConfigName,Callback=function(a,c)if c
-and#a>0 then b:Save(a)end end})local c=self:Dropdown({Name='Saved configs',
-Options=a:ListConfigs(),Default=a.ConfigName,Callback=function(a)if a then e:
-Set(a,true)end end})function b:Refresh()c:Refresh(a:ListConfigs(),true)end
-function b:Save(e)e=e or c:Get()or a.ConfigName local d,f=a:SaveConfig(e)b:
-Refresh()if d then c:Set(a.ConfigName,true)end a:Notify({Title=d and
-'Config saved'or'Save failed',Content=d and a.ConfigName or tostring(f),Type=d
-and'Success'or'Error',Duration=3})end function b:Load(b)b=b or c:Get()if not b
-then return end local d,e=a:LoadConfig(b)a:Notify({Title=d and'Config loaded'or
-'Load failed',Content=d and b or tostring(e),Type=d and'Success'or'Error',
-Duration=3})end function b:Delete(d)d=d or c:Get()if not d then return end local
-e,f=a:DeleteConfig(d)b:Refresh()a:Notify({Title=e and'Config deleted'or
-'Delete failed',Content=e and d or tostring(f),Type=e and'Info'or'Error',
-Duration=3})end self:Button({Name='Save',Desc=
+function el:SetStatus(text,kind)custom=text~=nil and{text,kind}or nil if el.Busy
+then return end if not custom then return paint(true)end local col=kind and a[
+kind]or a.Text status.Text=tostring(text)b(dot,{BackgroundColor3=col},0.2)b(
+status,{TextColor3=kind and col or a.Text},0.2)end function el:SetLevel(x)el.
+_manual=true el.Level=math.clamp(tonumber(x)or 0,0,1)end function el:SetNotice(
+text)if notice then notice.Text=tostring(text)end end function el:SetTitle(text)
+title.Text=tostring(text)end local analyzer if opts.Meter~=false then pcall(
+function()local input=J:FindFirstChildWhichIsA('AudioDeviceInput')if input then
+analyzer=Instance.new('AudioAnalyzer')analyzer.Parent=input local wire=Instance.
+new('Wire')wire.SourceInstance=input wire.TargetInstance=analyzer wire.Parent=
+analyzer end end)end local shown,clock={},0 local hb=ab.Heartbeat:Connect(
+function(dt)if not card.Parent or not card.Visible then return end clock+=dt
+local level=el.Level if analyzer and not el._manual then local ok,rms=pcall(
+function()return analyzer.RmsLevel end)level=ok and math.clamp((rms or 0)*5,0,1)
+or 0 end for n,bar in ipairs(bars)do local wave=0.55+0.45*math.sin(clock*9+n*1.3
+)*math.sin(clock*3.7+n*0.6)local target=4+20*level*math.clamp(wave,0.15,1)shown[
+n]=(shown[n]or 4)+(target-(shown[n]or 4))*math.min(dt*18,1)bar.Size=UDim2.
+fromOffset(3,math.floor(shown[n]+0.5))end end)table.insert(el._listeners,
+function()hb:Disconnect()if analyzer then analyzer:Destroy()end end)
+local function flip()if el.Locked or el.Busy then return end local target=not el
+.Value local cd=opts.Cooldown if type(cd)=='table'then cd=target and cd.On or cd
+.Off end cd=tonumber(cd)or 0 if cd<=0 then return el:Set(target)end el.Busy=true
+u(icon,'loader-circle')b(dot,{BackgroundColor3=a.Warning},0.2)b(status,{
+TextColor3=a.Text},0.2)b(sw,{BackgroundTransparency=0.5},0.2)b(knob,{
+BackgroundTransparency=0.4},0.2)task.spawn(function()local word=target and(opts.
+OnLoadingText or'Turning on')or(opts.OffLoadingText or'Turning off')local t0=os.
+clock()while not el._destroyed do local left=cd-(os.clock()-t0)if left<=0 then
+break end status.Text=string.format('%s  %.1fs',word,left)icon.Rotation=(os.
+clock()-t0)*360%360 task.wait()end if el._destroyed then return end icon.
+Rotation=0 b(sw,{BackgroundTransparency=0},0.2)b(knob,{BackgroundTransparency=0}
+,0.2)el.Busy=false el:Set(target)if custom then el:SetStatus(custom[1],custom[2]
+)end end)end btn.MouseButton1Click:Connect(flip)sw.MouseButton1Click:Connect(
+flip)paint(false)paintMethod(false)local out=q(self,opts,el,card,'Mic')if el.
+Value then l(opts.Callback,true,el.Method)end return out end function k:
+ConfigManager(d)d=n(d,{})local a=self.Window local b={}self:Section(d.Name or
+'Configs')local e=self:Input({Name='Config name',Placeholder=a.ConfigName,
+Callback=function(a,c)if c and#a>0 then b:Save(a)end end})local c=self:Dropdown(
+{Name='Saved configs',Options=a:ListConfigs(),Default=a.ConfigName,Callback=
+function(a)if a then e:Set(a,true)end end})function b:Refresh()c:Refresh(a:
+ListConfigs(),true)end function b:Save(e)e=e or c:Get()or a.ConfigName local d,f
+=a:SaveConfig(e)b:Refresh()if d then c:Set(a.ConfigName,true)end a:Notify({Title
+=d and'Config saved'or'Save failed',Content=d and a.ConfigName or tostring(f),
+Type=d and'Success'or'Error',Duration=3})end function b:Load(b)b=b or c:Get()if
+not b then return end local d,e=a:LoadConfig(b)a:Notify({Title=d and
+'Config loaded'or'Load failed',Content=d and b or tostring(e),Type=d and
+'Success'or'Error',Duration=3})end function b:Delete(d)d=d or c:Get()if not d
+then return end local e,f=a:DeleteConfig(d)b:Refresh()a:Notify({Title=e and
+'Config deleted'or'Delete failed',Content=e and d or tostring(f),Type=e and
+'Info'or'Error',Duration=3})end self:Button({Name='Save',Desc=
 'Writes every flagged element to the selected name',Icon='save',Style='Primary',
 Callback=function()local a=e:Get()b:Save(#a>0 and a or nil)end})self:Button({
 Name='Load',Icon='folder-open',Callback=function()b:Load()end})self:Button({Name

@@ -2731,7 +2731,8 @@ function k:Mic(opts)
 		b(btnStroke, { Color = on and a.Accent or a.Stroke }, t)
 		b(glow, { ImageTransparency = on and 0.7 or 1 }, t)
 		b(sw, { BackgroundColor3 = on and a.Accent or a.Surface3 }, t)
-		b(knob, { Position = on and UDim2.new(0, swW - 3 - knobW, 0.5, 0) or UDim2.new(0, 3, 0.5, 0), BackgroundColor3 = on and a.AccentDark or a.Muted }, t, Enum.EasingStyle.Back)
+		b(knob, { Position = on and UDim2.new(0, swW - 3 - knobW, 0.5, 0) or UDim2.new(0, 3, 0.5, 0) }, t, Enum.EasingStyle.Back)
+		b(knob, { BackgroundColor3 = on and a.AccentDark or a.Muted }, t)
 		u(icon, on and "mic" or "mic-off")
 		b(icon, { ImageColor3 = on and a.AccentDark or a.Muted }, t)
 		if not custom then
@@ -2840,7 +2841,10 @@ function k:Mic(opts)
 		end
 	end
 	function el:SetStatus(text, kind)
-		custom = text ~= nil
+		custom = text ~= nil and { text, kind } or nil
+		if el.Busy then
+			return
+		end
 		if not custom then
 			return paint(true)
 		end
@@ -2904,9 +2908,48 @@ function k:Mic(opts)
 	end)
 
 	local function flip()
-		if not el.Locked then
-			el:Set(not el.Value)
+		if el.Locked or el.Busy then
+			return
 		end
+		local target = not el.Value
+		local cd = opts.Cooldown
+		if type(cd) == "table" then
+			cd = target and cd.On or cd.Off
+		end
+		cd = tonumber(cd) or 0
+		if cd <= 0 then
+			return el:Set(target)
+		end
+		el.Busy = true
+		u(icon, "loader-circle")
+		b(dot, { BackgroundColor3 = a.Warning }, 0.2)
+		b(status, { TextColor3 = a.Text }, 0.2)
+		b(sw, { BackgroundTransparency = 0.5 }, 0.2)
+		b(knob, { BackgroundTransparency = 0.4 }, 0.2)
+		task.spawn(function()
+			local word = target and (opts.OnLoadingText or "Turning on") or (opts.OffLoadingText or "Turning off")
+			local t0 = os.clock()
+			while not el._destroyed do
+				local left = cd - (os.clock() - t0)
+				if left <= 0 then
+					break
+				end
+				status.Text = string.format("%s  %.1fs", word, left)
+				icon.Rotation = (os.clock() - t0) * 360 % 360
+				task.wait()
+			end
+			if el._destroyed then
+				return
+			end
+			icon.Rotation = 0
+			b(sw, { BackgroundTransparency = 0 }, 0.2)
+			b(knob, { BackgroundTransparency = 0 }, 0.2)
+			el.Busy = false
+			el:Set(target)
+			if custom then
+				el:SetStatus(custom[1], custom[2])
+			end
+		end)
 	end
 	btn.MouseButton1Click:Connect(flip)
 	sw.MouseButton1Click:Connect(flip)
