@@ -181,6 +181,20 @@ Elements:CreateColorPicker({
     end,
 })
 
+Elements:CreateSection("Mic")
+
+local Mic = Elements:CreateMic({
+    Name = "Anti VC ban",
+    Methods = { "Method 1", "Method 2" },
+    Notice = "Method 1 does not work on Xeno and Solara",
+    Flag = "ExampleMic",
+    Callback = function(Enabled, Method)
+        print("mic", Enabled, Method)
+    end,
+})
+-- Mic:SetStatus("Banned", "Error")   custom status line, Mic:SetStatus() goes back to On/Off
+-- Mic:SetLevel(0.6)                  drive the meter yourself; by default it reads your real mic
+
 Elements:CreateDivider()
 
 Elements:CreateLabel("Example label")

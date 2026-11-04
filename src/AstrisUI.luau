@@ -2617,6 +2617,307 @@ function k:Progress(d)
 	r(0)
 	return q(self, d, e, h, "Progress")
 end
+function k:Mic(opts)
+	opts = n(opts, { Title = "Name", Description = "Desc", CurrentValue = "Default", Value = "Default" })
+	local methods = type(opts.Methods) == "table" and #opts.Methods > 0 and opts.Methods or nil
+	local top = 76
+	local height = top + (methods and 42 or 0) + (opts.Notice and 26 or 0)
+	local card, stroke = G(self, "Frame", height, opts)
+	L(card, stroke)
+	local el = { Value = opts.Default == true, Method = methods and (opts.Method or methods[1]) or nil, Level = 0, _listeners = {} }
+
+	local btn = c("TextButton", {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.fromOffset(14, top / 2),
+		Size = UDim2.fromOffset(44, 44),
+		BackgroundColor3 = a.Surface3,
+		AutoButtonColor = false,
+		Text = "",
+		BorderSizePixel = 0,
+		Parent = card,
+	})
+	g(btn, UDim.new(1, 0))
+	local btnStroke = i(btn, a.Stroke)
+	local glow = c("ImageLabel", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.new(1, 30, 1, 30),
+		BackgroundTransparency = 1,
+		Image = v.Glow,
+		ImageColor3 = a.Accent,
+		ImageTransparency = 1,
+		ZIndex = 0,
+		Parent = btn,
+	})
+	local icon = c("ImageLabel", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.fromOffset(20, 20),
+		BackgroundTransparency = 1,
+		ImageColor3 = a.Muted,
+		ScaleType = Enum.ScaleType.Fit,
+		Parent = btn,
+	})
+
+	local title = f({ Name = "Title", Position = UDim2.fromOffset(72, top / 2 - 19), Size = UDim2.new(1, -230, 0, 18), Text = opts.Name or "Microphone", Parent = card })
+	local dot = c("Frame", {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.fromOffset(72, top / 2 + 11),
+		Size = UDim2.fromOffset(6, 6),
+		BackgroundColor3 = a.Muted,
+		BorderSizePixel = 0,
+		Parent = card,
+	})
+	g(dot, UDim.new(1, 0))
+	local status = f({
+		Name = "Desc",
+		Position = UDim2.fromOffset(84, top / 2 + 2),
+		Size = UDim2.new(1, -242, 0, 17),
+		TextSize = 13,
+		FontFace = j.Regular,
+		TextColor3 = a.Muted,
+		Parent = card,
+	})
+
+	local swW, knobW = m and 44 or 36, m and 18 or 14
+	local sw = c("TextButton", {
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, -14, 0, top / 2),
+		Size = UDim2.fromOffset(swW, m and 24 or 20),
+		BackgroundColor3 = a.Surface3,
+		AutoButtonColor = false,
+		Text = "",
+		BorderSizePixel = 0,
+		Parent = card,
+	})
+	g(sw, UDim.new(1, 0))
+	i(sw, a.Stroke)
+	local knob = c("Frame", {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 3, 0.5, 0),
+		Size = UDim2.fromOffset(knobW, knobW),
+		BackgroundColor3 = a.Muted,
+		BorderSizePixel = 0,
+		Parent = sw,
+	})
+	g(knob, UDim.new(1, 0))
+
+	local bars = {}
+	local meter = c("Frame", {
+		AnchorPoint = Vector2.new(1, 0.5),
+		Position = UDim2.new(1, -14 - (m and 44 or 36) - 16, 0, top / 2),
+		Size = UDim2.fromOffset(14 * 5 - 2, 24),
+		BackgroundTransparency = 1,
+		Parent = card,
+	})
+	for n = 1, 14 do
+		local bar = c("Frame", {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, (n - 1) * 5, 0.5, 0),
+			Size = UDim2.fromOffset(3, 4),
+			BackgroundColor3 = a.Surface3,
+			BorderSizePixel = 0,
+			Parent = meter,
+		})
+		g(bar, UDim.new(1, 0))
+		bars[n] = bar
+	end
+
+	local custom
+	local function paint(animate)
+		local on = el.Value
+		local t = animate and 0.25 or 0
+		b(btn, { BackgroundColor3 = on and a.Accent or a.Surface3 }, t)
+		b(btnStroke, { Color = on and a.Accent or a.Stroke }, t)
+		b(glow, { ImageTransparency = on and 0.7 or 1 }, t)
+		b(sw, { BackgroundColor3 = on and a.Accent or a.Surface3 }, t)
+		b(knob, { Position = on and UDim2.new(0, swW - 3 - knobW, 0.5, 0) or UDim2.new(0, 3, 0.5, 0), BackgroundColor3 = on and a.AccentDark or a.Muted }, t, Enum.EasingStyle.Back)
+		u(icon, on and "mic" or "mic-off")
+		b(icon, { ImageColor3 = on and a.AccentDark or a.Muted }, t)
+		if not custom then
+			status.Text = on and (opts.OnText or "Protected") or (opts.OffText or "Off")
+			b(dot, { BackgroundColor3 = on and a.Accent or a.Muted }, t)
+			b(status, { TextColor3 = on and a.Text or a.Muted }, t)
+		end
+		for _, bar in ipairs(bars) do
+			b(bar, { BackgroundColor3 = on and a.Accent or a.Surface3 }, t)
+		end
+	end
+
+	local seg, pills = nil, {}
+	local pill
+	local function paintMethod(animate)
+		if not seg then
+			return
+		end
+		for idx, name in ipairs(methods) do
+			local sel = name == el.Method
+			b(pills[idx], { TextColor3 = sel and a.Text or a.Muted }, animate and 0.2 or 0)
+			if sel then
+				b(pill, { Position = UDim2.new((idx - 1) / #methods, 3, 0, 3) }, animate and 0.3 or 0, Enum.EasingStyle.Quint)
+			end
+		end
+	end
+	if methods then
+		seg = c("Frame", {
+			Position = UDim2.fromOffset(14, top),
+			Size = UDim2.new(1, -28, 0, 32),
+			BackgroundColor3 = a.Surface,
+			BorderSizePixel = 0,
+			Parent = card,
+		})
+		g(seg, UDim.new(0, 8))
+		i(seg, a.Stroke)
+		pill = c("Frame", {
+			Size = UDim2.new(1 / #methods, -6, 1, -6),
+			BackgroundColor3 = a.Surface3,
+			BorderSizePixel = 0,
+			Parent = seg,
+		})
+		g(pill, UDim.new(0, 6))
+		for idx, name in ipairs(methods) do
+			local p = c("TextButton", {
+				Position = UDim2.fromScale((idx - 1) / #methods, 0),
+				Size = UDim2.fromScale(1 / #methods, 1),
+				BackgroundTransparency = 1,
+				AutoButtonColor = false,
+				Text = tostring(name),
+				TextSize = 13,
+				FontFace = j.Medium,
+				TextColor3 = a.Muted,
+				ZIndex = 2,
+				Parent = seg,
+			})
+			p.MouseButton1Click:Connect(function()
+				el:SetMethod(name)
+			end)
+			pills[idx] = p
+		end
+	end
+
+	local notice
+	if opts.Notice then
+		local y0 = top + (methods and 42 or 0)
+		local _, nIcon = A(card, "triangle-alert", a.Warning, UDim2.fromOffset(14, y0 + 8))
+		nIcon.Parent.Size = UDim2.fromOffset(14, 14)
+		notice = f({
+			Position = UDim2.fromOffset(34, y0),
+			Size = UDim2.new(1, -48, 0, 16),
+			Text = tostring(opts.Notice),
+			TextSize = 12,
+			FontFace = j.Regular,
+			TextColor3 = a.Muted,
+			Parent = card,
+		})
+	end
+
+	function el:Set(on, silent)
+		on = on == true
+		if on == el.Value then
+			return
+		end
+		el.Value = on
+		paint(true)
+		w(stroke)
+		if not silent then
+			l(opts.Callback, on, el.Method)
+		end
+	end
+	function el:Get()
+		return el.Value
+	end
+	function el:SetMethod(name, silent)
+		if not methods or name == el.Method or not table.find(methods, name) then
+			return
+		end
+		el.Method = name
+		paintMethod(true)
+		if not silent then
+			l(opts.OnMethod, name)
+			if el.Value then
+				l(opts.Callback, true, name)
+			end
+		end
+	end
+	function el:SetStatus(text, kind)
+		custom = text ~= nil
+		if not custom then
+			return paint(true)
+		end
+		local col = kind and a[kind] or a.Text
+		status.Text = tostring(text)
+		b(dot, { BackgroundColor3 = col }, 0.2)
+		b(status, { TextColor3 = kind and col or a.Text }, 0.2)
+	end
+	function el:SetLevel(x)
+		el._manual = true
+		el.Level = math.clamp(tonumber(x) or 0, 0, 1)
+	end
+	function el:SetNotice(text)
+		if notice then
+			notice.Text = tostring(text)
+		end
+	end
+	function el:SetTitle(text)
+		title.Text = tostring(text)
+	end
+
+	local analyzer
+	if opts.Meter ~= false then
+		pcall(function()
+			local input = J:FindFirstChildWhichIsA("AudioDeviceInput")
+			if input then
+				analyzer = Instance.new("AudioAnalyzer")
+				analyzer.Parent = input
+				local wire = Instance.new("Wire")
+				wire.SourceInstance = input
+				wire.TargetInstance = analyzer
+				wire.Parent = analyzer
+			end
+		end)
+	end
+	local shown, clock = {}, 0
+	local hb = ab.Heartbeat:Connect(function(dt)
+		if not card.Parent or not card.Visible then
+			return
+		end
+		clock += dt
+		local level = el.Level
+		if analyzer and not el._manual then
+			local ok, rms = pcall(function()
+				return analyzer.RmsLevel
+			end)
+			level = ok and math.clamp((rms or 0) * 5, 0, 1) or 0
+		end
+		for n, bar in ipairs(bars) do
+			local wave = 0.55 + 0.45 * math.sin(clock * 9 + n * 1.3) * math.sin(clock * 3.7 + n * 0.6)
+			local target = 4 + 20 * level * math.clamp(wave, 0.15, 1)
+			shown[n] = (shown[n] or 4) + (target - (shown[n] or 4)) * math.min(dt * 18, 1)
+			bar.Size = UDim2.fromOffset(3, math.floor(shown[n] + 0.5))
+		end
+	end)
+	table.insert(el._listeners, function()
+		hb:Disconnect()
+		if analyzer then
+			analyzer:Destroy()
+		end
+	end)
+
+	local function flip()
+		if not el.Locked then
+			el:Set(not el.Value)
+		end
+	end
+	btn.MouseButton1Click:Connect(flip)
+	sw.MouseButton1Click:Connect(flip)
+	paint(false)
+	paintMethod(false)
+	local out = q(self, opts, el, card, "Mic")
+	if el.Value then
+		l(opts.Callback, true, el.Method)
+	end
+	return out
+end
 function k:ConfigManager(d)
 	d = n(d, {})
 	local a = self.Window
