@@ -113,12 +113,12 @@ e.Themes = {
 		Surface2 = d(21, 23, 26),
 		Surface3 = d(33, 36, 41),
 		Stroke = d(34, 37, 42),
-		StrokeHover = d(58, 63, 70),
-		Accent = d(235, 64, 72),
-		AccentDark = d(30, 6, 8),
+		StrokeHover = d(80, 104, 64),
+		Accent = d(150, 214, 110),
+		AccentDark = d(14, 26, 8),
 		Text = d(236, 238, 241),
 		Muted = d(138, 144, 153),
-		Glow = d(255, 170, 174),
+		Glow = d(206, 236, 186),
 	}),
 	Mono = x({
 		Background = d(11, 12, 14),
@@ -146,18 +146,18 @@ e.Themes = {
 		Muted = d(138, 144, 153),
 		Glow = d(190, 220, 255),
 	}),
-	Moss = x({
+	Crimson = x({
 		Background = d(11, 12, 14),
 		Surface = d(16, 17, 20),
 		Surface2 = d(21, 23, 26),
 		Surface3 = d(33, 36, 41),
 		Stroke = d(34, 37, 42),
-		StrokeHover = d(80, 104, 64),
-		Accent = d(150, 214, 110),
-		AccentDark = d(14, 26, 8),
+		StrokeHover = d(110, 52, 56),
+		Accent = d(235, 64, 72),
+		AccentDark = d(30, 6, 8),
 		Text = d(236, 238, 241),
 		Muted = d(138, 144, 153),
-		Glow = d(206, 236, 186),
+		Glow = d(255, 170, 174),
 	}),
 	Ember = x({
 		Background = d(11, 12, 14),
@@ -231,6 +231,25 @@ do
 		e.Assets.Shadow = id
 		e.Assets.ShadowSlice = Rect.new(60, 60, 140, 140)
 	end
+end
+-- tiled noise laid over gradients so dark colours dither instead of banding
+e.Assets.Noise = bake("@@NOISE@@", "OblivionUI/noise_@@NOISEVER@@.png")
+local function dither(parent, alpha, z)
+	if not e.Assets.Noise then
+		return
+	end
+	local n = Instance.new("ImageLabel")
+	n.Name = "Dither"
+	n.Size = UDim2.fromScale(1, 1)
+	n.BackgroundTransparency = 1
+	n.Image = e.Assets.Noise
+	n.ImageTransparency = alpha or 0.975
+	n.ScaleType = Enum.ScaleType.Tile
+	n.TileSize = UDim2.fromOffset(128, 128)
+	n.ZIndex = z or 1
+	n:SetAttribute("OblivionNoTheme", true)
+	n.Parent = parent
+	return n
 end
 local E
 local function P()
@@ -708,6 +727,16 @@ local function ai(b, c, a)
 		end,
 	}
 end
+local function shadeSeq(lo)
+	-- eased white -> grey so the falloff has no visible steps
+	local k = {}
+	for i = 0, 8 do
+		local t = i / 8
+		local v = 1 - (1 - lo / 255) * (t * t * (3 - 2 * t))
+		k[#k + 1] = ColorSequenceKeypoint.new(t, Color3.new(v, v, v))
+	end
+	return ColorSequence.new(k)
+end
 local function G(e, f, h, k)
 	local d = {
 		Size = UDim2.new(1, 0, 0, h),
@@ -723,6 +752,7 @@ local function G(e, f, h, k)
 	local b = c(f, d)
 	b:SetAttribute("NoDrag", true)
 	g(b, UDim.new(0, 10))
+	c("UIGradient", { Rotation = 90, Color = shadeSeq(175), Parent = b })
 	local j = i(b, a.Stroke)
 	return b, j
 end
@@ -3233,6 +3263,42 @@ function e.Window(ac, k)
 	)
 	g(sp, UDim.new(0, 8))
 	i(sp, a.Stroke)
+	-- gradient body: soft radial accent glows over a base that darkens toward the bottom
+	local base = c(q, {
+		Name = "Base",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = a.Background,
+		BorderSizePixel = 0,
+		ZIndex = -1,
+		Parent = l,
+	})
+	c("UIGradient", { Rotation = 90, Color = shadeSeq(150), Parent = base })
+	for _, g2 in ipairs({
+		{ UDim2.new(1, -40, 0, 20), UDim2.fromScale(1.3, 1.5), 0.82 },
+		{ UDim2.new(0, 60, 1, 0), UDim2.fromScale(0.9, 0.9), 0.93 },
+	}) do
+		c("ImageLabel", {
+			Name = "Glow",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = g2[1],
+			Size = g2[2],
+			BackgroundTransparency = 1,
+			Image = v.Glow,
+			ImageColor3 = a.Accent,
+			ImageTransparency = g2[3],
+			ZIndex = 0,
+			Parent = l,
+		})
+	end
+	sp.BackgroundTransparency = 0.25
+	c("UIGradient", {
+		Rotation = 90,
+		Color = shadeSeq(120),
+		Transparency = NumberSequence.new(0, 0.3),
+		Parent = sp,
+	})
+	dither(sp)
+	dither(l, nil, 0)
 	local K = c(q, { Name = "Header", Size = UDim2.new(1, 0, 0, 72), BackgroundTransparency = 1, Parent = D })
 	local Q = c(
 		"ImageLabel",
@@ -3251,7 +3317,7 @@ function e.Window(ac, k)
 	d._titleLabel = f({
 		Position = UDim2.fromOffset(60, 25),
 		Size = UDim2.new(1, -70, 0, 20),
-		Text = k.Title or "Oblivion Hub",
+		Text = k.Title or "Oblivion",
 		TextSize = 20,
 		Parent = K,
 	})
@@ -3933,7 +3999,7 @@ function h:_showLoader(e)
 	f({
 		Position = UDim2.fromOffset(24, 84),
 		Size = UDim2.new(1, -48, 0, 22),
-		Text = e.LoadingTitle or e.Title or "Oblivion Hub",
+		Text = e.LoadingTitle or e.Title or "Oblivion",
 		TextSize = 18,
 		FontFace = j.Bold,
 		TextXAlignment = Enum.TextXAlignment.Center,
@@ -5681,6 +5747,7 @@ function h:Tab(e, v)
 		}
 	)
 	g(h)
+	c("UIGradient", { Rotation = 90, Color = shadeSeq(170), Parent = h })
 	local r = i(h, a.Stroke, 1)
 	d._button = h
 	local s = e.Icon ~= nil

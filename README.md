@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ossdiablo.github.io/Astris-UI/"><b>Website and full guide</b></a>
+  <a href="https://ossdiablo.github.io/OblivionHub-UI/"><b>Website and full guide</b></a>
 </p>
 
 ---
@@ -20,7 +20,7 @@
 Put this at the top of your script.
 
 ```lua
-local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau"))()
 ```
 
 ## 2. Make a window
@@ -111,7 +111,7 @@ Window:LoadConfig() -- always last
 ## Full example
 
 ```lua
-local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau"))()
 
 local Window = Oblivion:CreateWindow({
     Name = "My Hub",
@@ -221,7 +221,7 @@ Oblivion:Confirm({
 
 ## Themes
 
-Built in: `Default`, `Midnight`, `Moss`, `Ember`, `Rose`, `Mono`.
+Built in: `Default`, `Midnight`, `Crimson`, `Ember`, `Rose`, `Mono`.
 
 ```lua
 Oblivion:SetTheme("Midnight")
@@ -232,7 +232,7 @@ Oblivion:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })
 
 | Option | What it does | Default |
 | --- | --- | --- |
-| `Name` | Title in the sidebar | `"Oblivion Hub"` |
+| `Name` | Title in the sidebar | `"Oblivion"` |
 | `Subtitle` | Small line under the title | none |
 | `Icon` | Logo next to the title | Oblivion logo |
 | `Theme` | Starting theme | `"Default"` |

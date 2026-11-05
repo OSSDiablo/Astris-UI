@@ -1,9 +1,9 @@
-local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/refs/heads/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/refs/heads/main/Source.luau"))()
 
 local Window = Oblivion:CreateWindow({
-    Name = "Oblivion Hub",
+    Name = "Oblivion",
     LoadingSubtitle = "Example",
-    Theme = "Default", -- or "Midnight", "Moss", "Ember", "Rose", "Mono", or a table of colours
+    Theme = "Default", -- or "Midnight", "Crimson", "Ember", "Rose", "Mono", or a table of colours
     ToggleUIKeybind = "RightControl", -- key that hides and shows the window
     -- examples: "RightShift", "RightControl", "LeftAlt", "Insert", "Home", "F1", "Backquote"
     -- Enum.KeyCode values also work: ToggleUIKeybind = Enum.KeyCode.RightShift

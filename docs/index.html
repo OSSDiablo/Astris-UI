@@ -20,7 +20,7 @@
   --text: #eceef1;
   --muted: #8a9099;
   --dim: #5d636c;
-  --accent: #eb4048;
+  --accent: #96d66e;
   --code-str: #e6c07b;
   --code-num: #6bb8ff;
 }
@@ -162,7 +162,7 @@ header .right { margin-left: auto; display: flex; gap: 10px; }
   padding: 11px 12px; display: flex; gap: 10px; align-items: start;
   box-shadow: 0 20px 50px -10px rgba(0,0,0,.8); font-size: 12px; overflow: hidden;
 }
-.toast .ti { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: rgba(235,64,72,.14); color: var(--accent); flex-shrink: 0; }
+.toast .ti { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: rgba(150,214,110,.14); color: var(--accent); flex-shrink: 0; }
 .toast b { display: block; font-weight: 500; font-size: 13px; }
 .toast span { color: var(--muted); }
 .toast::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 60%; background: var(--accent); }
@@ -273,7 +273,7 @@ footer a:hover { color: var(--text); }
       <a href="#themes">Themes</a>
     </nav>
     <div class="right">
-      <a class="btn" href="https://github.com/OSSDiablo/Astris-UI"><svg class="i"><use href="#i-gh"/></svg>GitHub</a>
+      <a class="btn" href="https://github.com/OSSDiablo/OblivionHub-UI"><svg class="i"><use href="#i-gh"/></svg>GitHub</a>
       <a class="btn primary" href="#start">Docs</a>
     </div>
   </div>
@@ -287,18 +287,18 @@ footer a:hover { color: var(--text); }
       <p class="lead">Oblivion is a clean, modern UI library for Roblox scripts. Load it with one line, build a full menu in a few more.</p>
       <div class="cta">
         <a class="btn primary big" href="#start">Get started</a>
-        <a class="btn big" href="https://github.com/OSSDiablo/Astris-UI/blob/main/Example.luau">See the example</a>
+        <a class="btn big" href="https://github.com/OSSDiablo/OblivionHub-UI/blob/main/Example.luau">See the example</a>
       </div>
       <div class="load">
-        <code>loadstring(game:HttpGet("<b>https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau</b>"))()</code>
-        <button class="icon-btn" data-copy="local Oblivion = loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau&quot;))()" aria-label="Copy loadstring"><svg class="i"><use href="#i-copy"/></svg></button>
+        <code>loadstring(game:HttpGet("<b>https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau</b>"))()</code>
+        <button class="icon-btn" data-copy="local Oblivion = loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau&quot;))()" aria-label="Copy loadstring"><svg class="i"><use href="#i-copy"/></svg></button>
       </div>
     </div>
 
     <div class="stage">
       <div class="mock" id="mock">
         <div class="side">
-          <div class="head"><img src="logo.png" alt=""><div><b>Oblivion Hub</b><small>v1.0</small></div></div>
+          <div class="head"><img src="logo.png" alt=""><div><b>Oblivion</b><small>v1.0</small></div></div>
           <div class="tab"><svg class="i"><use href="#i-home"/></svg>Home</div>
           <div class="tab on"><svg class="i"><use href="#i-zap"/></svg>Main</div>
           <div class="tab"><svg class="i"><use href="#i-server"/></svg>Server</div>
@@ -319,9 +319,9 @@ footer a:hover { color: var(--text); }
       </div>
       <div class="toast"><span class="ti"><svg class="i"><use href="#i-cc"/></svg></span><div><b>Loaded</b><span>Everything is ready</span></div></div>
       <div class="themes">Try a theme
-        <button class="dot on" style="background:#eb4048" data-c="#eb4048" aria-label="Default"></button>
+        <button class="dot on" style="background:#96d66e" data-c="#96d66e" aria-label="Default"></button>
         <button class="dot" style="background:#6bb8ff" data-c="#6bb8ff" aria-label="Midnight"></button>
-        <button class="dot" style="background:#96d66e" data-c="#96d66e" aria-label="Moss"></button>
+        <button class="dot" style="background:#eb4048" data-c="#eb4048" aria-label="Crimson"></button>
         <button class="dot" style="background:#ffb21a" data-c="#ffb21a" aria-label="Ember"></button>
         <button class="dot" style="background:#ff7896" data-c="#ff7896" aria-label="Rose"></button>
         <button class="dot" style="background:#e8eae9" data-c="#e8eae9" aria-label="Mono"></button>
@@ -371,7 +371,7 @@ footer a:hover { color: var(--text); }
       <div class="eyebrow">Step 1</div>
       <h2>Load the library</h2>
       <p>Put this line at the very top of your script. It downloads Oblivion and gives you the <code>Oblivion</code> table you use for everything else.</p>
-      <div class="code"><pre>local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()</pre></div>
+      <div class="code"><pre>local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau"))()</pre></div>
     </section>
 
     <section id="window">
@@ -630,7 +630,7 @@ Oblivion:Dialog({
     <section id="themes">
       <div class="eyebrow">More</div>
       <h2>Themes</h2>
-      <p>Six built in: <code>Default</code>, <code>Midnight</code>, <code>Moss</code>, <code>Ember</code>, <code>Rose</code> and <code>Mono</code>. Switching is instant, even while the menu is open. Users can also pick one in the Settings tab.</p>
+      <p>Six built in: <code>Default</code>, <code>Midnight</code>, <code>Crimson</code>, <code>Ember</code>, <code>Rose</code> and <code>Mono</code>. Switching is instant, even while the menu is open. Users can also pick one in the Settings tab.</p>
       <div class="code"><pre>Oblivion:SetTheme("Midnight")
 
 -- or only change the accent colour
@@ -643,7 +643,7 @@ Oblivion:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })</pre></div>
       <p>Everything you can put in <code>CreateWindow</code>. All of them are optional.</p>
       <div class="table"><table>
         <tr><th>Option</th><th>What it does</th><th>Default</th></tr>
-        <tr><td><code>Name</code></td><td>Title in the sidebar</td><td>"Oblivion Hub"</td></tr>
+        <tr><td><code>Name</code></td><td>Title in the sidebar</td><td>"Oblivion"</td></tr>
         <tr><td><code>Subtitle</code></td><td>Small line under the title</td><td>none</td></tr>
         <tr><td><code>Icon</code></td><td>Logo next to the title</td><td>Oblivion logo</td></tr>
         <tr><td><code>Theme</code></td><td>Starting theme</td><td>"Default"</td></tr>
@@ -669,7 +669,7 @@ Oblivion:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })</pre></div>
       <div class="eyebrow">Copy and go</div>
       <h2>Full example</h2>
       <p>Run this, then change it into your own script.</p>
-      <div class="code"><pre>local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
+      <div class="code"><pre>local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/OblivionHub-UI/main/Source.luau"))()
 
 local Window = Oblivion:CreateWindow({
     Name = "My Hub",
@@ -721,7 +721,7 @@ Window:LoadConfig()</pre></div>
 <footer>
   <div class="wrap">
     <span>Oblivion Hub UI Library. Based on <a href="https://github.com/PookiePepelsss/Airflow-UI">Airflow UI</a> by Pookie.</span>
-    <a href="https://github.com/OSSDiablo/Astris-UI">GitHub</a>
+    <a href="https://github.com/OSSDiablo/OblivionHub-UI">GitHub</a>
   </div>
 </footer>
 
