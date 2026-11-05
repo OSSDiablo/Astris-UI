@@ -232,7 +232,7 @@ Oblivion:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })
 
 | Option | What it does | Default |
 | --- | --- | --- |
-| `Name` | Title in the sidebar | `"Oblivion"` |
+| `Name` | Name of the ScreenGui. The sidebar title is always Oblivion, use `Subtitle` for your script name | `"Oblivion"` |
 | `Subtitle` | Small line under the title | none |
 | `Icon` | Logo next to the title | Oblivion logo |
 | `Theme` | Starting theme | `"Default"` |

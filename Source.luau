@@ -803,22 +803,22 @@ K=c(q,{Name='Header',Size=UDim2.new(1,0,0,72),BackgroundTransparency=1,Parent=D}
 )local Q=c('ImageLabel',{Position=UDim2.fromOffset(22,27),Size=UDim2.fromOffset(
 30,28),BackgroundTransparency=1,Image='',ImageColor3=a.Text,ScaleType=Enum.
 ScaleType.Fit,Parent=K})u(Q,k.Icon or v.Logo)d._logo=Q d._titleLabel=f({Position
-=UDim2.fromOffset(60,25),Size=UDim2.new(1,-70,0,20),Text=k.Title or'Oblivion',
-TextSize=20,Parent=K})d._subtitleLabel=f({Position=UDim2.fromOffset(60,45),Size=
-UDim2.new(1,-70,0,14),Text=k.Subtitle or'',TextSize=13,FontFace=j.Regular,
-TextColor3=a.Muted,Parent=K})local t=c('ScrollingFrame',{Name='Tabs',Position=
-UDim2.fromOffset(0,80),Size=UDim2.new(1,0,1,-116),BackgroundTransparency=1,
-BorderSizePixel=0,ScrollBarThickness=0,AutomaticCanvasSize=Enum.AutomaticSize.Y,
-CanvasSize=UDim2.new(),Parent=D})d.TabList=t if m then t:SetAttribute('NoDrag',
-true)end o(t,16,16,4,4)c(M,{SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.
-new(0,4),Parent=t})local E=c(q,{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.
-fromOffset(19,0),Size=UDim2.fromOffset(3,16),BackgroundColor3=a.Accent,
-BorderSizePixel=0,Visible=false,ZIndex=2,Parent=D})g(E,UDim.new(1,0))d.Indicator
-=E local R=t.CanvasPosition.Y table.insert(d._frameSteps,function()local b=t.
-CanvasPosition.Y if b==R or not d.CurrentTab or not d._introDone then return end
-R=b local a=d:_indicatorY(d.CurrentTab)local c=t.Position.Y.Offset local e=c+t.
-AbsoluteSize.Y/d.Scale.Scale E.Visible=a>c and a<e E.Position=UDim2.fromOffset(
-19,a)end)local S=c(q,{Position=UDim2.new(0,22,1,-36),Size=UDim2.new(1,-44,0,22),
+=UDim2.fromOffset(60,25),Size=UDim2.new(1,-70,0,20),Text='Oblivion',TextSize=20,
+Parent=K})d._subtitleLabel=f({Position=UDim2.fromOffset(60,45),Size=UDim2.new(1,
+-70,0,14),Text=k.Subtitle or'',TextSize=13,FontFace=j.Regular,TextColor3=a.Muted
+,Parent=K})local t=c('ScrollingFrame',{Name='Tabs',Position=UDim2.fromOffset(0,
+80),Size=UDim2.new(1,0,1,-116),BackgroundTransparency=1,BorderSizePixel=0,
+ScrollBarThickness=0,AutomaticCanvasSize=Enum.AutomaticSize.Y,CanvasSize=UDim2.
+new(),Parent=D})d.TabList=t if m then t:SetAttribute('NoDrag',true)end o(t,16,16
+,4,4)c(M,{SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,4),Parent=t})
+local E=c(q,{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.fromOffset(19,0),Size
+=UDim2.fromOffset(3,16),BackgroundColor3=a.Accent,BorderSizePixel=0,Visible=
+false,ZIndex=2,Parent=D})g(E,UDim.new(1,0))d.Indicator=E local R=t.
+CanvasPosition.Y table.insert(d._frameSteps,function()local b=t.CanvasPosition.Y
+if b==R or not d.CurrentTab or not d._introDone then return end R=b local a=d:
+_indicatorY(d.CurrentTab)local c=t.Position.Y.Offset local e=c+t.AbsoluteSize.Y/
+d.Scale.Scale E.Visible=a>c and a<e E.Position=UDim2.fromOffset(19,a)end)local S
+=c(q,{Position=UDim2.new(0,22,1,-36),Size=UDim2.new(1,-44,0,22),
 BackgroundTransparency=1,Parent=D})local x=c(q,{Size=UDim2.fromOffset(0,22),
 AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=a.Surface,BorderSizePixel=0,
 Parent=S})g(x,UDim.new(0,5))i(x)o(x,7,7)local Y=f({Size=UDim2.new(0,0,1,0),
@@ -969,35 +969,35 @@ task.delay(0.15,function()b(n,{Size=UDim2.fromOffset(28,28),Rotation=0},0.6,Enum
 Transparency=0.5},0.5)end)local pulse=aa:Create(ring,TweenInfo.new(0.9,Enum.
 EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true,0.6),{Transparency=0.85})
 task.delay(0.65,function()if d.Parent then pulse:Play()end end)f({Position=UDim2
-.fromOffset(24,84),Size=UDim2.new(1,-48,0,22),Text=e.LoadingTitle or e.Title or
-'Oblivion',TextSize=18,FontFace=j.Bold,TextXAlignment=Enum.TextXAlignment.Center
-,Parent=d})local A=f({Position=UDim2.fromOffset(24,108),Size=UDim2.new(1,-48,0,
-16),Text=e.LoadingText or e.Subtitle or'Loading',TextSize=13,FontFace=j.Regular,
-TextColor3=a.Muted,TextXAlignment=Enum.TextXAlignment.Center,Parent=d})local k=
-c(h,{Position=UDim2.new(0,24,1,-32),Size=UDim2.new(1,-48,0,4),BackgroundColor3=a
-.Surface3,BorderSizePixel=0,ClipsDescendants=true,Parent=d})g(k,UDim.new(1,0))
-local l=c(h,{Size=UDim2.fromScale(0,1),BackgroundColor3=a.Accent,BorderSizePixel
-=0,Parent=k})g(l,UDim.new(1,0))local o=c(h,{Position=UDim2.fromScale(-0.4,0),
-Size=UDim2.fromScale(0.4,1),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=0.55,BorderSizePixel=0,ZIndex=2,Parent=k})c('UIGradient',
-{Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.5,0),NumberSequenceKeypoint.new(1,1)}),Parent=o})b(
-d,{GroupTransparency=0,Position=UDim2.fromScale(0.5,0.5)},0.4,Enum.EasingStyle.
-Quint)b(p,{Scale=1},0.5,Enum.EasingStyle.Back)b(q,{ImageTransparency=0.6},0.4)
-local s=aa:Create(o,TweenInfo.new(1.1,Enum.EasingStyle.Sine,Enum.EasingDirection
-.InOut,-1),{Position=UDim2.fromScale(1,0)})s:Play()b(l,{Size=UDim2.fromScale(
-0.85,1)},m*0.8,Enum.EasingStyle.Quart)task.spawn(P)local t=e.LoadingSteps or{
-'Preparing interface','Loading icons','Almost there'}for a,b in ipairs(t)do task
-.delay(m*(a-1)/#t,function()if d.Parent and A.Text~=b then local base=UDim2.
-fromOffset(24,108)local t=aa:Create(A,TweenInfo.new(0.14,Enum.EasingStyle.Quint,
-Enum.EasingDirection.In),{TextTransparency=1,Position=base-UDim2.fromOffset(0,4)
-})t:Play()t.Completed:Wait()if not d.Parent then return end A.Text=b A.Position=
-base+UDim2.fromOffset(0,4)aa:Create(A,TweenInfo.new(0.22,Enum.EasingStyle.Quint,
-Enum.EasingDirection.Out),{TextTransparency=0,Position=base}):Play()end end)end
-task.delay(m,function()b(l,{Size=UDim2.fromScale(1,1)},0.25,Enum.EasingStyle.
-Quint)task.delay(0.25,function()s:Cancel()pulse:Cancel()b(ring,{Transparency=1},
-0.15)b(r,{BackgroundTransparency=1},0.15)for c,a in ipairs(d:GetChildren())do if
-a:IsA('TextLabel')then b(a,{TextTransparency=1},0.15)end end b(n,{
+.fromOffset(24,84),Size=UDim2.new(1,-48,0,22),Text='Oblivion',TextSize=18,
+FontFace=j.Bold,TextXAlignment=Enum.TextXAlignment.Center,Parent=d})local A=f({
+Position=UDim2.fromOffset(24,108),Size=UDim2.new(1,-48,0,16),Text=e.LoadingText
+or e.Subtitle or'Loading',TextSize=13,FontFace=j.Regular,TextColor3=a.Muted,
+TextXAlignment=Enum.TextXAlignment.Center,Parent=d})local k=c(h,{Position=UDim2.
+new(0,24,1,-32),Size=UDim2.new(1,-48,0,4),BackgroundColor3=a.Surface3,
+BorderSizePixel=0,ClipsDescendants=true,Parent=d})g(k,UDim.new(1,0))local l=c(h,
+{Size=UDim2.fromScale(0,1),BackgroundColor3=a.Accent,BorderSizePixel=0,Parent=k}
+)g(l,UDim.new(1,0))local o=c(h,{Position=UDim2.fromScale(-0.4,0),Size=UDim2.
+fromScale(0.4,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.55,
+BorderSizePixel=0,ZIndex=2,Parent=k})c('UIGradient',{Transparency=NumberSequence
+.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.5,0),
+NumberSequenceKeypoint.new(1,1)}),Parent=o})b(d,{GroupTransparency=0,Position=
+UDim2.fromScale(0.5,0.5)},0.4,Enum.EasingStyle.Quint)b(p,{Scale=1},0.5,Enum.
+EasingStyle.Back)b(q,{ImageTransparency=0.6},0.4)local s=aa:Create(o,TweenInfo.
+new(1.1,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1),{Position=UDim2.
+fromScale(1,0)})s:Play()b(l,{Size=UDim2.fromScale(0.85,1)},m*0.8,Enum.
+EasingStyle.Quart)task.spawn(P)local t=e.LoadingSteps or{'Preparing interface',
+'Loading icons','Almost there'}for a,b in ipairs(t)do task.delay(m*(a-1)/#t,
+function()if d.Parent and A.Text~=b then local base=UDim2.fromOffset(24,108)
+local t=aa:Create(A,TweenInfo.new(0.14,Enum.EasingStyle.Quint,Enum.
+EasingDirection.In),{TextTransparency=1,Position=base-UDim2.fromOffset(0,4)})t:
+Play()t.Completed:Wait()if not d.Parent then return end A.Text=b A.Position=base
++UDim2.fromOffset(0,4)aa:Create(A,TweenInfo.new(0.22,Enum.EasingStyle.Quint,Enum
+.EasingDirection.Out),{TextTransparency=0,Position=base}):Play()end end)end task
+.delay(m,function()b(l,{Size=UDim2.fromScale(1,1)},0.25,Enum.EasingStyle.Quint)
+task.delay(0.25,function()s:Cancel()pulse:Cancel()b(ring,{Transparency=1},0.15)
+b(r,{BackgroundTransparency=1},0.15)for c,a in ipairs(d:GetChildren())do if a:
+IsA('TextLabel')then b(a,{TextTransparency=1},0.15)end end b(n,{
 ImageTransparency=1},0.15)b(k,{BackgroundTransparency=1},0.15)b(l,{
 BackgroundTransparency=1},0.15)b(o,{BackgroundTransparency=1},0.1)local a=self.
 _fitScale or 1 local c=self.Root.Size b(d,{Size=UDim2.fromOffset(c.X.Offset*a,c.
@@ -1640,31 +1640,31 @@ BodyStroke,{Transparency=1},0.12)b(self.Shadow,{ImageTransparency=1},0.16)task.
 delay(0.2,function()if not self.Open then self.Root.Visible=false end end)end
 end function h:SetKeepOnScreen(a)self.KeepOnScreen=a~=false if self.KeepOnScreen
 then self:_clampToScreen()end end function h:SetKeybind(a)a=F(a)if not a then
-return end self.Keybind=a self._keyChipLabel.Text=W(a)end function h:SetTitle(a)
-self._titleLabel.Text=tostring(a)end function h:SetSubtitle(a)self.
-_subtitleLabel.Text=tostring(a)end function h:SetIcon(a)u(self._logo,a)end
-function h:Notify(d)local logo=e.Assets and e.Assets.Logo d=n(d,{Text='Content',
-Message='Content',Image='Icon'})local duration=d.Duration or 4 local kind=aB[d.
-Type]local tone=kind and a[kind]or a.Accent local icons={Info='info',Success=
-'circle-check',Warning='triangle-alert',Error='circle-x'}local icon=d.Icon or
-icons[d.Type]self._notifyOrder+=1 local slot=c('Frame',{Size=UDim2.new(1,0,0,0),
-BackgroundTransparency=1,LayoutOrder=self._notifyOrder,Parent=self.NotifyHolder}
-)local mover=c('Frame',{Position=UDim2.fromOffset(40,0),Size=UDim2.new(1,0,0,0),
-AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Parent=slot})local
-pop=c('UIScale',{Scale=0.94,Parent=mover})local shadow=c('ImageLabel',{Position=
-UDim2.fromOffset(-22,-18),Size=UDim2.new(1,44,1,44),BackgroundTransparency=1,
-Image=v.Shadow,ImageColor3=Color3.new(0,0,0),ImageTransparency=1,ScaleType=Enum.
-ScaleType.Slice,SliceCenter=v.ShadowSlice,ZIndex=0,Parent=mover})local card=c(
-'CanvasGroup',{Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,
-BackgroundColor3=a.Surface,BorderSizePixel=0,GroupTransparency=1,Parent=mover})
-g(card,UDim.new(0,14))local stroke=i(card,a.Stroke)T(card)z(card,UDim2.
-fromOffset(220,110),UDim2.new(0,10,0,0),0.9,90)local body=c('Frame',{Size=UDim2.
-new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Parent=
-card})o(body,12,40,12,14)local tile=c('Frame',{Size=UDim2.fromOffset(36,36),
-BackgroundColor3=tone,BackgroundTransparency=0.86,BorderSizePixel=0,Parent=body}
-)g(tile,UDim.new(0,10))i(tile,tone,0.7)local glyph=c('ImageLabel',{AnchorPoint=
-Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(18,
-18),BackgroundTransparency=1,ImageColor3=icon and tone or a.Text,ScaleType=Enum.
+return end self.Keybind=a self._keyChipLabel.Text=W(a)end function h:SetTitle()
+end function h:SetSubtitle(a)self._subtitleLabel.Text=tostring(a)end function h:
+SetIcon(a)u(self._logo,a)end function h:Notify(d)local logo=e.Assets and e.
+Assets.Logo d=n(d,{Text='Content',Message='Content',Image='Icon'})local duration
+=d.Duration or 4 local kind=aB[d.Type]local tone=kind and a[kind]or a.Accent
+local icons={Info='info',Success='circle-check',Warning='triangle-alert',Error=
+'circle-x'}local icon=d.Icon or icons[d.Type]self._notifyOrder+=1 local slot=c(
+'Frame',{Size=UDim2.new(1,0,0,0),BackgroundTransparency=1,LayoutOrder=self.
+_notifyOrder,Parent=self.NotifyHolder})local mover=c('Frame',{Position=UDim2.
+fromOffset(40,0),Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,Parent=slot})local pop=c('UIScale',{Scale=0.94,Parent=
+mover})local shadow=c('ImageLabel',{Position=UDim2.fromOffset(-22,-18),Size=
+UDim2.new(1,44,1,44),BackgroundTransparency=1,Image=v.Shadow,ImageColor3=Color3.
+new(0,0,0),ImageTransparency=1,ScaleType=Enum.ScaleType.Slice,SliceCenter=v.
+ShadowSlice,ZIndex=0,Parent=mover})local card=c('CanvasGroup',{Size=UDim2.new(1,
+0,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=a.Surface,
+BorderSizePixel=0,GroupTransparency=1,Parent=mover})g(card,UDim.new(0,14))local
+stroke=i(card,a.Stroke)T(card)z(card,UDim2.fromOffset(220,110),UDim2.new(0,10,0,
+0),0.9,90)local body=c('Frame',{Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.
+AutomaticSize.Y,BackgroundTransparency=1,Parent=card})o(body,12,40,12,14)local
+tile=c('Frame',{Size=UDim2.fromOffset(36,36),BackgroundColor3=tone,
+BackgroundTransparency=0.86,BorderSizePixel=0,Parent=body})g(tile,UDim.new(0,10)
+)i(tile,tone,0.7)local glyph=c('ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(18,18),
+BackgroundTransparency=1,ImageColor3=icon and tone or a.Text,ScaleType=Enum.
 ScaleType.Fit,Parent=tile})u(glyph,icon or logo or'bell')local text=c('Frame',{
 Position=UDim2.fromOffset(48,0),Size=UDim2.new(1,-48,0,0),AutomaticSize=Enum.
 AutomaticSize.Y,BackgroundTransparency=1,Parent=body})c('UIListLayout',{
