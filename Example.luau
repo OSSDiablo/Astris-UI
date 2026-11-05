@@ -24,7 +24,7 @@ local Window = Oblivion:CreateWindow({
             {
                 Name = "Info",
                 Icon = "info",
-                Content = "Oblivion UI example. Everything on the Elements tab just prints, so you can click around safely.",
+                Content = "Oblivion Hub UI Library example. Everything on the Elements tab just prints, so you can click around safely.",
             },
         },
     },

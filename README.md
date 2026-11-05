@@ -2,7 +2,7 @@
   <img src="assets/logo.png" width="84" alt="Oblivion">
 </p>
 
-<h1 align="center">Oblivion UI</h1>
+<h1 align="center">Oblivion Hub UI Library</h1>
 
 <p align="center">
   A clean, modern UI library for Roblox scripts.<br>
