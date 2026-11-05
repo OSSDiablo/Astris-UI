@@ -1,13 +1,13 @@
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/refs/heads/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/refs/heads/main/Source.luau"))()
 
-local Window = Astris:CreateWindow({
-    Name = "Astris Hub",
+local Window = Oblivion:CreateWindow({
+    Name = "Oblivion Hub",
     LoadingSubtitle = "Example",
     Theme = "Default", -- or "Midnight", "Moss", "Ember", "Rose", "Mono", or a table of colours
     ToggleUIKeybind = "RightControl", -- key that hides and shows the window
     -- examples: "RightShift", "RightControl", "LeftAlt", "Insert", "Home", "F1", "Backquote"
     -- Enum.KeyCode values also work: ToggleUIKeybind = Enum.KeyCode.RightShift
-    ConfigurationSaving = { Enabled = true, FolderName = "AstrisExample", FileName = "default" },
+    ConfigurationSaving = { Enabled = true, FolderName = "OblivionExample", FileName = "default" },
     Home = {
         Name = "Home",
         Stats = { "FPS", "Ping", "Executor", "Game", "Server", "Time" },
@@ -24,7 +24,7 @@ local Window = Astris:CreateWindow({
             {
                 Name = "Info",
                 Icon = "info",
-                Content = "Astris UI example. Everything on the Elements tab just prints, so you can click around safely.",
+                Content = "Oblivion UI example. Everything on the Elements tab just prints, so you can click around safely.",
             },
         },
     },
@@ -211,7 +211,7 @@ for _, Type in ipairs({ "Info", "Success", "Warning", "Error" }) do
     Popups:CreateButton({
         Name = Type .. " notification",
         Callback = function()
-            Astris:Notify({
+            Oblivion:Notify({
                 Title = Type,
                 Content = "Example " .. string.lower(Type) .. " notification",
                 Icon = "bell",
@@ -225,7 +225,7 @@ end
 Popups:CreateButton({
     Name = "Example confirm",
     Callback = function()
-        Astris:Confirm({
+        Oblivion:Confirm({
             Title = "Example confirm",
             Content = "Are you sure?",
             ConfirmText = "Yes",
@@ -240,7 +240,7 @@ Popups:CreateButton({
 Popups:CreateButton({
     Name = "Example dialog",
     Callback = function()
-        Astris:Dialog({
+        Oblivion:Dialog({
             Title = "Example dialog",
             Content = "Pick one.",
             Buttons = {

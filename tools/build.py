@@ -1,9 +1,9 @@
-# src/AstrisUI.luau -> Source.luau (logo baked, minified) and dev.luau (Source + Example, for testing)
+# src/OblivionUI.luau -> Source.luau (logo baked, minified) and dev.luau (Source + Example, for testing)
 import base64, hashlib, shutil, subprocess, sys, tempfile
 from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 logo = (root / "assets" / "logo.png").read_bytes()
-src = (root / "src" / "AstrisUI.luau").read_text()
+src = (root / "src" / "OblivionUI.luau").read_text()
 shadow = (root / "assets" / "shadow.png").read_bytes()
 src = src.replace("@@SHADOW@@", base64.b64encode(shadow).decode()).replace("@@SHADOWVER@@", hashlib.sha1(shadow).hexdigest()[:8])
 src = src.replace("@@LOGO@@", base64.b64encode(logo).decode()).replace("@@LOGOVER@@", hashlib.sha1(logo).hexdigest()[:8])
@@ -17,5 +17,5 @@ with tempfile.TemporaryDirectory() as t:
     out = b.read_text()
 (root / "Source.luau").write_text(out)
 ex = (root / "Example.luau").read_text().splitlines(True)
-(root / "dev.luau").write_text("local Astris = (function()\n" + out + "\nend)()\n" + "".join(ex[1:]))
+(root / "dev.luau").write_text("local Oblivion = (function()\n" + out + "\nend)()\n" + "".join(ex[1:]))
 print("Source.luau", len(out), "bytes")

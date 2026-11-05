@@ -114,11 +114,11 @@ e.Themes = {
 		Surface3 = d(33, 36, 41),
 		Stroke = d(34, 37, 42),
 		StrokeHover = d(58, 63, 70),
-		Accent = d(62, 196, 130),
-		AccentDark = d(5, 24, 14),
+		Accent = d(235, 64, 72),
+		AccentDark = d(30, 6, 8),
 		Text = d(236, 238, 241),
 		Muted = d(138, 144, 153),
-		Glow = d(150, 232, 190),
+		Glow = d(255, 170, 174),
 	}),
 	Mono = x({
 		Background = d(11, 12, 14),
@@ -213,8 +213,8 @@ local function bake(data, path)
 				out[#out + 1] = string.char(v // 65536, v // 256 % 256, v % 256)
 			end
 		end
-		if isfolder and makefolder and not isfolder("AstrisUI") then
-			makefolder("AstrisUI")
+		if isfolder and makefolder and not isfolder("OblivionUI") then
+			makefolder("OblivionUI")
 		end
 		if not (isfile and isfile(path)) then
 			writefile(path, table.concat(out))
@@ -223,10 +223,10 @@ local function bake(data, path)
 	end)
 	return ok and id or nil
 end
-e.Assets.Logo = bake("@@LOGO@@", "AstrisUI/logo_@@LOGOVER@@.png") or e.Assets.Logo
+e.Assets.Logo = bake("@@LOGO@@", "OblivionUI/logo_@@LOGOVER@@.png") or e.Assets.Logo
 -- soft shadow drawn around a radius 14 rounded rect, so it follows the window corners
 do
-	local id = bake("@@SHADOW@@", "AstrisUI/shadow_@@SHADOWVER@@.png")
+	local id = bake("@@SHADOW@@", "OblivionUI/shadow_@@SHADOWVER@@.png")
 	if id then
 		e.Assets.Shadow = id
 		e.Assets.ShadowSlice = Rect.new(60, 60, 140, 140)
@@ -246,7 +246,7 @@ local function P()
 		E = a
 	else
 		E = false
-		warn("[Astris] lucide icons unavailable: " .. tostring(a))
+		warn("[Oblivion] lucide icons unavailable: " .. tostring(a))
 	end
 	return E
 end
@@ -267,16 +267,16 @@ function e:LoadFont(b)
 	local f = "function"
 	b = n(b, {})
 	if type(writefile) ~= f or type(isfile) ~= f or typeof(getcustomasset) ~= f then
-		warn("[Astris] custom fonts need writefile, isfile and getcustomasset")
+		warn("[Oblivion] custom fonts need writefile, isfile and getcustomasset")
 		return false
 	end
 	local a = b.Name or "CustomFont"
 	local g = b.Weights or aq[a]
 	if type(g) ~= "table" then
-		warn("[Astris] no font weights for " .. a)
+		warn("[Oblivion] no font weights for " .. a)
 		return false
 	end
-	local d = b.Folder or "AstrisUI/fonts"
+	local d = b.Folder or "OblivionUI/fonts"
 	pcall(function()
 		if type(isfolder) == "function" and type(makefolder) == "function" and not isfolder(d) then
 			makefolder(d)
@@ -295,7 +295,7 @@ function e:LoadFont(b)
 			if g then
 				table.insert(h, { name = b, weight = c[1], style = "normal", assetId = getcustomasset(f) })
 			else
-				warn("[Astris] could not download " .. b .. " weight of " .. a)
+				warn("[Oblivion] could not download " .. b .. " weight of " .. a)
 			end
 		end
 	end
@@ -351,7 +351,7 @@ local function ar(a)
 	elseif type(c) == "string" then
 		return c
 	end
-	warn("[Astris] unknown lucide icon: " .. d)
+	warn("[Oblivion] unknown lucide icon: " .. d)
 	return nil
 end
 local Q = "rbxasset://fonts/families/BuilderSans.json"
@@ -669,7 +669,7 @@ local function F(a)
 	if b then
 		return c
 	end
-	warn("[Astris] unknown key name: " .. a)
+	warn("[Oblivion] unknown key name: " .. a)
 	return nil
 end
 local function l(a, ...)
@@ -678,7 +678,7 @@ local function l(a, ...)
 	end
 	local b, c = pcall(a, ...)
 	if not b then
-		warn("[Astris] callback error: " .. tostring(c))
+		warn("[Oblivion] callback error: " .. tostring(c))
 	end
 end
 local function ai(b, c, a)
@@ -785,7 +785,7 @@ ac = function(b, e, h)
 			if a then
 				a.Text = tostring(b)
 			else
-				warn("[Astris] SetDesc needs the element to be created with a Desc")
+				warn("[Oblivion] SetDesc needs the element to be created with a Desc")
 			end
 		end
 	end
@@ -972,7 +972,7 @@ function k:Label(b)
 				if e and d ~= nil then
 					c.Text = tostring(d)
 				elseif not e then
-					warn("[Astris] label update error: " .. tostring(d))
+					warn("[Oblivion] label update error: " .. tostring(d))
 				end
 				task.wait(a)
 			end
@@ -2137,7 +2137,7 @@ function k:ColorPicker(h)
 			Parent = A,
 		}
 	)
-	C:SetAttribute("AstrisNoTheme", true)
+	C:SetAttribute("OblivionNoTheme", true)
 	g(C, UDim.new(0, 6))
 	i(C, a.Stroke)
 	local S = ah(A, 1, -12)
@@ -2304,7 +2304,7 @@ function k:ColorPicker(h)
 			a = b and c or nil
 		end
 		if typeof(a) ~= "Color3" then
-			warn("[Astris] ColorPicker:Set expects a Color3 or hex string")
+			warn("[Oblivion] ColorPicker:Set expects a Color3 or hex string")
 			return
 		end
 		z, D, E = Color3.toHSV(a)
@@ -3128,7 +3128,7 @@ local aB = { Info = O, Success = "Success", Warning = "Warning", Error = "Error"
 local h = {}
 h.__index = h
 function e.Window(ac, k)
-	local H, q, I, M, J, B = "AstrisUI", "Frame", "CanvasGroup", "UIListLayout", "AbsoluteSize", "table"
+	local H, q, I, M, J, B = "OblivionUI", "Frame", "CanvasGroup", "UIListLayout", "AbsoluteSize", "table"
 	k = n(k, { Name = "Title", LoadingSubtitle = "Subtitle", ToggleUIKeybind = "Keybind" })
 	if k.Theme ~= nil then
 		e:SetTheme(k.Theme)
@@ -3251,7 +3251,7 @@ function e.Window(ac, k)
 	d._titleLabel = f({
 		Position = UDim2.fromOffset(60, 25),
 		Size = UDim2.new(1, -70, 0, 20),
-		Text = k.Title or "Astris Hub",
+		Text = k.Title or "Oblivion Hub",
 		TextSize = 20,
 		Parent = K,
 	})
@@ -3561,7 +3561,7 @@ local function aC(a, d)
 	end
 end
 local function aD(a, b)
-	if a:GetAttribute("AstrisNoTheme") then
+	if a:GetAttribute("OblivionNoTheme") then
 		return
 	end
 	if a:IsA("GuiObject") then
@@ -3598,7 +3598,7 @@ local function ak(a)
 	if type(a) == "string" then
 		local b = e.Themes[a]
 		if not b then
-			warn("[Astris] unknown theme: " .. a)
+			warn("[Oblivion] unknown theme: " .. a)
 			return nil
 		end
 		return table.clone(b), a
@@ -3612,7 +3612,7 @@ local function ak(a)
 		end
 		return b, a.Name or "Custom"
 	end
-	warn("[Astris] SetTheme expects a theme name or a table of colours")
+	warn("[Oblivion] SetTheme expects a theme name or a table of colours")
 	return nil
 end
 function e:GetThemes()
@@ -3933,7 +3933,7 @@ function h:_showLoader(e)
 	f({
 		Position = UDim2.fromOffset(24, 84),
 		Size = UDim2.new(1, -48, 0, 22),
-		Text = e.LoadingTitle or e.Title or "Astris Hub",
+		Text = e.LoadingTitle or e.Title or "Oblivion Hub",
 		TextSize = 18,
 		FontFace = j.Bold,
 		TextXAlignment = Enum.TextXAlignment.Center,
@@ -4362,7 +4362,7 @@ function h:LoadConfig(a, e)
 		if a and type(a.Set) == "function" and type(b) == "table" and b.Type == a._type then
 			local d, f = pcall(aI, a, b, e == true)
 			if not d then
-				warn("[Astris] could not load flag " .. tostring(c) .. ": " .. tostring(f))
+				warn("[Oblivion] could not load flag " .. tostring(c) .. ": " .. tostring(f))
 			end
 		end
 	end
@@ -5260,7 +5260,7 @@ function h:_buildEsp(d)
 		Visible = false,
 		Parent = card,
 	})
-	ghost_vp:SetAttribute("AstrisNoTheme", true)
+	ghost_vp:SetAttribute("OblivionNoTheme", true)
 	local ghost_world = c("WorldModel", { Parent = ghost_vp })
 	local ghost_cam = c("Camera", { FieldOfView = 36, Parent = ghost_vp })
 	ghost_vp.CurrentCamera = ghost_cam
@@ -5292,7 +5292,7 @@ function h:_buildEsp(d)
 
 	local function line(parent)
 		local fr = c("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), BorderSizePixel = 0, BackgroundColor3 = S.Color, ZIndex = 3, Parent = parent })
-		fr:SetAttribute("AstrisNoTheme", true)
+		fr:SetAttribute("OblivionNoTheme", true)
 		return fr
 	end
 	local function box_frame(parent)
@@ -5300,8 +5300,8 @@ function h:_buildEsp(d)
 		c("UIStroke", { Color = Color3.new(0, 0, 0), Thickness = 3, Transparency = 0.4, Parent = fr })
 		local inner = c("Frame", { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, ZIndex = 3, Parent = fr })
 		local st = c("UIStroke", { Color = S.Color, Thickness = 1.5, Parent = inner })
-		fr:SetAttribute("AstrisNoTheme", true)
-		inner:SetAttribute("AstrisNoTheme", true)
+		fr:SetAttribute("OblivionNoTheme", true)
+		inner:SetAttribute("OblivionNoTheme", true)
 		return fr, st
 	end
 	local function tag(parent, size)
@@ -5316,14 +5316,14 @@ function h:_buildEsp(d)
 			ZIndex = 4,
 			Parent = parent,
 		})
-		t:SetAttribute("AstrisNoTheme", true)
+		t:SetAttribute("OblivionNoTheme", true)
 		return t
 	end
 	local function hp_bar(parent)
 		local bg = c("Frame", { AnchorPoint = Vector2.new(1, 0), BackgroundColor3 = Color3.new(0, 0, 0), BackgroundTransparency = 0.3, BorderSizePixel = 0, ZIndex = 3, Parent = parent })
 		local fill = c("Frame", { AnchorPoint = Vector2.new(0, 1), Position = UDim2.fromScale(0, 1), Size = UDim2.fromScale(1, 1), BorderSizePixel = 0, ZIndex = 4, Parent = bg })
-		bg:SetAttribute("AstrisNoTheme", true)
-		fill:SetAttribute("AstrisNoTheme", true)
+		bg:SetAttribute("OblivionNoTheme", true)
+		fill:SetAttribute("OblivionNoTheme", true)
 		return bg, fill
 	end
 	local function hp_color(r)
@@ -5527,7 +5527,7 @@ function h:_buildEsp(d)
 	end)
 
 	-- real ESP
-	local gui = c("ScreenGui", { Name = "AstrisESP", IgnoreGuiInset = true, ResetOnSpawn = false, DisplayOrder = 998, Parent = self.Gui.Parent })
+	local gui = c("ScreenGui", { Name = "OblivionESP", IgnoreGuiInset = true, ResetOnSpawn = false, DisplayOrder = 998, Parent = self.Gui.Parent })
 	self._espGui = gui
 	local marks = {}
 	local function mark(plr)
@@ -5617,17 +5617,17 @@ function h:_buildEsp(d)
 
 	-- controls
 	tab:Section("Visuals")
-	tab:Toggle({ Name = "ESP", Desc = "Show everyone through walls", Flag = "AstrisEspEnabled", Default = false, Callback = function(v) S.Enabled = v end })
-	tab:Toggle({ Name = "Boxes", Flag = "AstrisEspBox", Default = S.Box, Callback = function(v) S.Box = v end })
-	tab:Toggle({ Name = "Names", Flag = "AstrisEspName", Default = S.Name, Callback = function(v) S.Name = v end })
-	tab:Toggle({ Name = "Distance", Flag = "AstrisEspDistance", Default = S.Distance, Callback = function(v) S.Distance = v end })
-	tab:Toggle({ Name = "Health bars", Flag = "AstrisEspHealth", Default = S.Health, Callback = function(v) S.Health = v end })
-	tab:Toggle({ Name = "Tracers", Flag = "AstrisEspTracer", Default = S.Tracer, Callback = function(v) S.Tracer = v end })
-	tab:Toggle({ Name = "Chams", Desc = "Fill players with colour", Flag = "AstrisEspChams", Default = S.Chams, Callback = function(v) S.Chams = v end })
-	tab:Toggle({ Name = "Outlines", Desc = "Glow outline around players", Flag = "AstrisEspOutline", Default = S.Outline, Callback = function(v) S.Outline = v end })
+	tab:Toggle({ Name = "ESP", Desc = "Show everyone through walls", Flag = "OblivionEspEnabled", Default = false, Callback = function(v) S.Enabled = v end })
+	tab:Toggle({ Name = "Boxes", Flag = "OblivionEspBox", Default = S.Box, Callback = function(v) S.Box = v end })
+	tab:Toggle({ Name = "Names", Flag = "OblivionEspName", Default = S.Name, Callback = function(v) S.Name = v end })
+	tab:Toggle({ Name = "Distance", Flag = "OblivionEspDistance", Default = S.Distance, Callback = function(v) S.Distance = v end })
+	tab:Toggle({ Name = "Health bars", Flag = "OblivionEspHealth", Default = S.Health, Callback = function(v) S.Health = v end })
+	tab:Toggle({ Name = "Tracers", Flag = "OblivionEspTracer", Default = S.Tracer, Callback = function(v) S.Tracer = v end })
+	tab:Toggle({ Name = "Chams", Desc = "Fill players with colour", Flag = "OblivionEspChams", Default = S.Chams, Callback = function(v) S.Chams = v end })
+	tab:Toggle({ Name = "Outlines", Desc = "Glow outline around players", Flag = "OblivionEspOutline", Default = S.Outline, Callback = function(v) S.Outline = v end })
 	tab:Section("Style")
-	tab:ColorPicker({ Name = "Colour", Flag = "AstrisEspColor", Default = S.Color, Callback = function(v) S.Color = v end })
-	tab:Slider({ Name = "Max distance", Flag = "AstrisEspRange", Min = 100, Max = 5000, Step = 50, Default = S.MaxDistance, Suffix = " studs", Callback = function(v) S.MaxDistance = v end })
+	tab:ColorPicker({ Name = "Colour", Flag = "OblivionEspColor", Default = S.Color, Callback = function(v) S.Color = v end })
+	tab:Slider({ Name = "Max distance", Flag = "OblivionEspRange", Min = 100, Max = 5000, Step = 50, Default = S.MaxDistance, Suffix = " studs", Callback = function(v) S.MaxDistance = v end })
 	self.EspTab = tab
 	return tab
 end
@@ -5635,7 +5635,7 @@ function h:_buildSettings(d)
 	local tab = self:_pinTab(self:Tab({ Name = d.Name or "Settings", Desc = d.Desc, Icon = d.Icon or "settings" }), 9003)
 	local window = self
 	tab:Section("Interface")
-	tab:ThemePicker({ Flag = "AstrisTheme" })
+	tab:ThemePicker({ Flag = "OblivionTheme" })
 	tab:Keybind({
 		Name = "Toggle UI",
 		CurrentKeybind = self.Keybind and self.Keybind.Name or "RightControl",

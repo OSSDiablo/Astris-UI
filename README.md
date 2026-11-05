@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/logo.png" width="84" alt="Astris">
+  <img src="assets/logo.png" width="84" alt="Oblivion">
 </p>
 
-<h1 align="center">Astris UI</h1>
+<h1 align="center">Oblivion UI</h1>
 
 <p align="center">
   A clean, modern UI library for Roblox scripts.<br>
@@ -20,20 +20,20 @@
 Put this at the top of your script.
 
 ```lua
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
 ```
 
 ## 2. Make a window
 
 ```lua
-local Window = Astris:CreateWindow({
+local Window = Oblivion:CreateWindow({
     Name = "My Hub",
     Subtitle = "v1.0",
     ToggleUIKeybind = "RightControl",
 })
 ```
 
-That's a working menu. It comes with the Astris button to hide and show it, and ready-made **Server**, **ESP** and **Settings** tabs. Add `Home = true` for a Home tab too.
+That's a working menu. It comes with the Oblivion button to hide and show it, and ready-made **Server**, **ESP** and **Settings** tabs. Add `Home = true` for a Home tab too.
 
 Drag any empty spot to move it. Drag the bottom-right corner to resize it.
 
@@ -81,7 +81,7 @@ Every element works the same way: give it a `Name`, and a `Callback` that runs w
 ## 5. Show a notification
 
 ```lua
-Astris:Notify({
+Oblivion:Notify({
     Title = "Loaded",
     Content = "Everything is ready",
     Type = "Success", -- "Info", "Success", "Warning" or "Error"
@@ -94,7 +94,7 @@ Astris:Notify({
 Turn saving on in the window, give each element a `Flag`, then load at the end.
 
 ```lua
-local Window = Astris:CreateWindow({
+local Window = Oblivion:CreateWindow({
     Name = "My Hub",
     ConfigurationSaving = { Enabled = true, FolderName = "MyHub" },
 })
@@ -111,9 +111,9 @@ Window:LoadConfig() -- always last
 ## Full example
 
 ```lua
-local Astris = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
+local Oblivion = loadstring(game:HttpGet("https://raw.githubusercontent.com/OSSDiablo/Astris-UI/main/Source.luau"))()
 
-local Window = Astris:CreateWindow({
+local Window = Oblivion:CreateWindow({
     Name = "My Hub",
     Subtitle = "v1.0",
     ConfigurationSaving = { Enabled = true, FolderName = "MyHub" },
@@ -150,7 +150,7 @@ Main:CreateButton({
     end,
 })
 
-Astris:Notify({ Title = "My Hub", Content = "Loaded", Type = "Success" })
+Oblivion:Notify({ Title = "My Hub", Content = "Loaded", Type = "Success" })
 
 Window:LoadConfig()
 ```
@@ -204,13 +204,13 @@ Speed:SetVisible(false) -- hide it
 | Settings | Theme, hide key, saved configs, unload | `Settings = false` |
 
 ```lua
-Astris:CreateWindow({ Name = "My Hub", Home = true, Server = false })
+Oblivion:CreateWindow({ Name = "My Hub", Home = true, Server = false })
 ```
 
 ## Popups
 
 ```lua
-Astris:Confirm({
+Oblivion:Confirm({
     Title = "Unload?",
     Content = "The menu will close.",
     Callback = function()
@@ -224,22 +224,22 @@ Astris:Confirm({
 Built in: `Default`, `Midnight`, `Moss`, `Ember`, `Rose`, `Mono`.
 
 ```lua
-Astris:SetTheme("Midnight")
-Astris:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })
+Oblivion:SetTheme("Midnight")
+Oblivion:SetTheme({ Accent = Color3.fromRGB(0, 227, 255) })
 ```
 
 ## Window options
 
 | Option | What it does | Default |
 | --- | --- | --- |
-| `Name` | Title in the sidebar | `"Astris Hub"` |
+| `Name` | Title in the sidebar | `"Oblivion Hub"` |
 | `Subtitle` | Small line under the title | none |
-| `Icon` | Logo next to the title | Astris logo |
+| `Icon` | Logo next to the title | Oblivion logo |
 | `Theme` | Starting theme | `"Default"` |
 | `ToggleUIKeybind` | Key that hides and shows the menu | `"RightControl"` |
 | `Size` | Starting size | `UDim2.fromOffset(640, 480)` |
 | `ConfigurationSaving` | `{ Enabled, FolderName, FileName, AutoSave }` | off |
-| `OpenButton` | The draggable Astris button. `false` removes it | on |
+| `OpenButton` | The draggable Oblivion button. `false` removes it | on |
 | `Loading` | Loading screen. `false` skips it | on |
 | `Home`, `Server`, `Esp`, `Settings` | Built-in tabs | see above |
 
