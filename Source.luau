@@ -803,85 +803,86 @@ K=c(q,{Name='Header',Size=UDim2.new(1,0,0,72),BackgroundTransparency=1,Parent=D}
 )local Q=c('ImageLabel',{Position=UDim2.fromOffset(22,27),Size=UDim2.fromOffset(
 30,28),BackgroundTransparency=1,Image='',ImageColor3=a.Text,ScaleType=Enum.
 ScaleType.Fit,Parent=K})u(Q,k.Icon or v.Logo)d._logo=Q d._titleLabel=f({Position
-=UDim2.fromOffset(60,25),Size=UDim2.new(1,-70,0,20),Text='Oblivion',TextSize=20,
-Parent=K})d._subtitleLabel=f({Position=UDim2.fromOffset(60,45),Size=UDim2.new(1,
--70,0,14),Text=k.Subtitle or'',TextSize=13,FontFace=j.Regular,TextColor3=a.Muted
-,Parent=K})local t=c('ScrollingFrame',{Name='Tabs',Position=UDim2.fromOffset(0,
-80),Size=UDim2.new(1,0,1,-116),BackgroundTransparency=1,BorderSizePixel=0,
-ScrollBarThickness=0,AutomaticCanvasSize=Enum.AutomaticSize.Y,CanvasSize=UDim2.
-new(),Parent=D})d.TabList=t if m then t:SetAttribute('NoDrag',true)end o(t,16,16
-,4,4)c(M,{SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,4),Parent=t})
-local E=c(q,{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.fromOffset(19,0),Size
-=UDim2.fromOffset(3,16),BackgroundColor3=a.Accent,BorderSizePixel=0,Visible=
-false,ZIndex=2,Parent=D})g(E,UDim.new(1,0))d.Indicator=E local R=t.
-CanvasPosition.Y table.insert(d._frameSteps,function()local b=t.CanvasPosition.Y
-if b==R or not d.CurrentTab or not d._introDone then return end R=b local a=d:
-_indicatorY(d.CurrentTab)local c=t.Position.Y.Offset local e=c+t.AbsoluteSize.Y/
-d.Scale.Scale E.Visible=a>c and a<e E.Position=UDim2.fromOffset(19,a)end)local S
-=c(q,{Position=UDim2.new(0,22,1,-36),Size=UDim2.new(1,-44,0,22),
-BackgroundTransparency=1,Parent=D})local x=c(q,{Size=UDim2.fromOffset(0,22),
-AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=a.Surface,BorderSizePixel=0,
-Parent=S})g(x,UDim.new(0,5))i(x)o(x,7,7)local Y=f({Size=UDim2.new(0,0,1,0),
-AutomaticSize=Enum.AutomaticSize.X,Text=W(N),TextSize=11,TextColor3=a.Muted,
-TextTruncate=Enum.TextTruncate.None,Parent=x})d._keyChipLabel=Y local Z=f({Size=
-UDim2.new(1,0,1,0),Text=m and'or tap the pill'or'to hide',TextSize=12,FontFace=j
-.Regular,TextColor3=a.Muted,Parent=S})local function U()Z.Position=UDim2.
-fromOffset(x.AbsoluteSize.X/d.Scale.Scale+8,0)end x:GetPropertyChangedSignal(J):
-Connect(U)task.defer(U)local G=c(q,{Name='Content',Position=UDim2.fromOffset(171
-,0),Size=UDim2.new(1,-171,1,0),BackgroundTransparency=1,ClipsDescendants=true,
-Parent=l})d.Content=G d._outLayer=c(I,{Name='TransitionOut',Size=UDim2.
-fromScale(1,1),BackgroundTransparency=1,Visible=false,ZIndex=2,Parent=G})d.
-_inLayer=c(I,{Name='TransitionIn',Size=UDim2.fromScale(1,1),
-BackgroundTransparency=1,Visible=false,ZIndex=3,Parent=G})local w=c('TextButton'
-,{AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,-16,0,18),Size=UDim2.
-fromOffset(30,30),BackgroundColor3=a.Surface3,BackgroundTransparency=1,Text='',
-AutoButtonColor=false,ZIndex=5,Parent=G})g(w,UDim.new(0,8))local wi=c(
-'ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5)
-,Size=UDim2.fromOffset(16,16),BackgroundTransparency=1,ImageColor3=a.Muted,
-ScaleType=Enum.ScaleType.Fit,ZIndex=6,Parent=w})u(wi,'x')w.MouseEnter:Connect(
-function()b(w,{BackgroundTransparency=0.4},0.15)b(wi,{ImageColor3=a.Text},0.15)
-end)w.MouseLeave:Connect(function()b(w,{BackgroundTransparency=1},0.2)b(wi,{
-ImageColor3=a.Muted},0.2)end)w.MouseButton1Click:Connect(function()d:Toggle(
-false)end)local L=c(q,{Name='Notifications',AnchorPoint=Vector2.new(1,1),
-Position=UDim2.new(1,-20,1,-20),Size=UDim2.new(0,320,1,-40),
-BackgroundTransparency=1,Parent=s})local function aa()L.Size=UDim2.new(0,math.
-min(320,s.AbsoluteSize.X-40),1,-40)end table.insert(d._connections,s:
-GetPropertyChangedSignal(J):Connect(aa))c(M,{SortOrder=Enum.SortOrder.
-LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Bottom,Padding=UDim.new(0,8
-),Parent=L})d.NotifyHolder=L d._notifyOrder=0 d._toasts={}d.MaxNotifications=k.
-MaxNotifications or 4 d._controlsDirty=true table.insert(d._connections,l.
-DescendantAdded:Connect(function()d._controlsDirty=true end))table.insert(d.
-_connections,l.DescendantRemoving:Connect(function()d._controlsDirty=true end))d
-:_enableDrag()d.MaxSize=k.MaxSize d.KeepOnScreen=k.KeepOnScreen~=false d:
-_enableResize(k.MinSize or Vector2.new(480,360))local A=k.ConfigurationSaving if
-type(A)==B and A.Enabled~=false then d.ConfigFolder=A.FolderName or H d.
-ConfigName=A.FileName or'default'd._autoSaveEnabled=A.AutoSave==true else d.
-ConfigFolder=H d.ConfigName='default'd._autoSaveEnabled=false end table.insert(d
-._connections,p.InputBegan:Connect(function(a,b)if b then return end if a.
-KeyCode==Enum.KeyCode.Escape and d._dialog and d._dialog.Dismissable then d.
-_dialog.Cancel()return end if a.UserInputType==Enum.UserInputType.Keyboard and a
-.KeyCode==d.Keybind then task.defer(function()local b=d._consumedKey==a.KeyCode
-and os.clock()-(d._consumedAt or 0)<0.2 d._consumedKey=nil if not b and not d.
-_destroyed then d:Toggle(not d.Open)end end)end end))pcall(function()if typeof(
-syn)=='table'and typeof(syn.protect_gui)=='function'then syn.protect_gui(s)end
-end)s.Parent=k.Parent or as()O.Scale=0.9 l.GroupTransparency=1 P.
-ImageTransparency=1 d.BodyStroke.Transparency=1 y.Visible=false d:_fitToScreen(
-true)table.insert(d._connections,s:GetPropertyChangedSignal(J):Connect(function(
-)d:_fitToScreen()d:_clampToScreen()end))if k.OpenButton~=false then d:
-_createOpenButton(type(k.OpenButton)==B and k.OpenButton or{})end d._introDone=
-false table.insert(e.Windows,d)if k.Home then d:_buildHome(type(k.Home)==B and k
-.Home or{})end for _,name in ipairs({'Server','Esp','Settings'})do local opt=k[
-name]if opt~=false then d['_build'..name](d,type(opt)==B and opt or{})end end
-local r=k.Loading if type(r)==B then k.LoadingDuration=r.Duration or k.
-LoadingDuration k.LoadingText=r.Text or r.Subtitle or k.LoadingText k.
-LoadingSteps=r.Steps or k.LoadingSteps k.LoadingTitle=r.Title or k.LoadingTitle
-r=r.Enabled~=false end if r==false then task.defer(function()d:_playIntro()end)
-else d:_showLoader(k)end return d end e.CreateWindow=e.Window local function C(a
-,b,d)local e=a[b]:ToHex()local c=d[e]if c then a[b]=c end end local function aC(
-a,d)local b=false local c={}for f,a in ipairs(a.Color.Keypoints)do local e=d[a.
-Value:ToHex()]if e then b=true end c[f]=ColorSequenceKeypoint.new(a.Time,e or a.
-Value)end if b then a.Color=ColorSequence.new(c)end end local function aD(a,b)if
-a:GetAttribute('OblivionNoTheme')then return end if a:IsA('GuiObject')then C(a,
+=UDim2.fromOffset(60,25),Size=UDim2.new(1,-70,0,20),Text=k.Name or'Oblivion',
+TextSize=20,TextTruncate=Enum.TextTruncate.AtEnd,Parent=K})d._subtitleLabel=f({
+Position=UDim2.fromOffset(60,45),Size=UDim2.new(1,-70,0,14),Text=k.Subtitle or''
+,TextSize=13,FontFace=j.Regular,TextColor3=a.Muted,Parent=K})local t=c(
+'ScrollingFrame',{Name='Tabs',Position=UDim2.fromOffset(0,80),Size=UDim2.new(1,0
+,1,-116),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,
+AutomaticCanvasSize=Enum.AutomaticSize.Y,CanvasSize=UDim2.new(),Parent=D})d.
+TabList=t if m then t:SetAttribute('NoDrag',true)end o(t,16,16,4,4)c(M,{
+SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,4),Parent=t})local E=c(q
+,{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.fromOffset(19,0),Size=UDim2.
+fromOffset(3,16),BackgroundColor3=a.Accent,BorderSizePixel=0,Visible=false,
+ZIndex=2,Parent=D})g(E,UDim.new(1,0))d.Indicator=E local R=t.CanvasPosition.Y
+table.insert(d._frameSteps,function()local b=t.CanvasPosition.Y if b==R or not d
+.CurrentTab or not d._introDone then return end R=b local a=d:_indicatorY(d.
+CurrentTab)local c=t.Position.Y.Offset local e=c+t.AbsoluteSize.Y/d.Scale.Scale
+E.Visible=a>c and a<e E.Position=UDim2.fromOffset(19,a)end)local S=c(q,{Position
+=UDim2.new(0,22,1,-36),Size=UDim2.new(1,-44,0,22),BackgroundTransparency=1,
+Parent=D})local x=c(q,{Size=UDim2.fromOffset(0,22),AutomaticSize=Enum.
+AutomaticSize.X,BackgroundColor3=a.Surface,BorderSizePixel=0,Parent=S})g(x,UDim.
+new(0,5))i(x)o(x,7,7)local Y=f({Size=UDim2.new(0,0,1,0),AutomaticSize=Enum.
+AutomaticSize.X,Text=W(N),TextSize=11,TextColor3=a.Muted,TextTruncate=Enum.
+TextTruncate.None,Parent=x})d._keyChipLabel=Y local Z=f({Size=UDim2.new(1,0,1,0)
+,Text=m and'or tap the pill'or'to hide',TextSize=12,FontFace=j.Regular,
+TextColor3=a.Muted,Parent=S})local function U()Z.Position=UDim2.fromOffset(x.
+AbsoluteSize.X/d.Scale.Scale+8,0)end x:GetPropertyChangedSignal(J):Connect(U)
+task.defer(U)local G=c(q,{Name='Content',Position=UDim2.fromOffset(171,0),Size=
+UDim2.new(1,-171,1,0),BackgroundTransparency=1,ClipsDescendants=true,Parent=l})d
+.Content=G d._outLayer=c(I,{Name='TransitionOut',Size=UDim2.fromScale(1,1),
+BackgroundTransparency=1,Visible=false,ZIndex=2,Parent=G})d._inLayer=c(I,{Name=
+'TransitionIn',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Visible=false,
+ZIndex=3,Parent=G})local w=c('TextButton',{AnchorPoint=Vector2.new(1,0),Position
+=UDim2.new(1,-16,0,18),Size=UDim2.fromOffset(30,30),BackgroundColor3=a.Surface3,
+BackgroundTransparency=1,Text='',AutoButtonColor=false,ZIndex=5,Parent=G})g(w,
+UDim.new(0,8))local wi=c('ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),Position
+=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(16,16),BackgroundTransparency=1,
+ImageColor3=a.Muted,ScaleType=Enum.ScaleType.Fit,ZIndex=6,Parent=w})u(wi,'x')w.
+MouseEnter:Connect(function()b(w,{BackgroundTransparency=0.4},0.15)b(wi,{
+ImageColor3=a.Text},0.15)end)w.MouseLeave:Connect(function()b(w,{
+BackgroundTransparency=1},0.2)b(wi,{ImageColor3=a.Muted},0.2)end)w.
+MouseButton1Click:Connect(function()d:Toggle(false)end)local L=c(q,{Name=
+'Notifications',AnchorPoint=Vector2.new(1,1),Position=UDim2.new(1,-20,1,-20),
+Size=UDim2.new(0,320,1,-40),BackgroundTransparency=1,Parent=s})local function aa
+()L.Size=UDim2.new(0,math.min(320,s.AbsoluteSize.X-40),1,-40)end table.insert(d.
+_connections,s:GetPropertyChangedSignal(J):Connect(aa))c(M,{SortOrder=Enum.
+SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Bottom,Padding=
+UDim.new(0,8),Parent=L})d.NotifyHolder=L d._notifyOrder=0 d._toasts={}d.
+MaxNotifications=k.MaxNotifications or 4 d._controlsDirty=true table.insert(d.
+_connections,l.DescendantAdded:Connect(function()d._controlsDirty=true end))
+table.insert(d._connections,l.DescendantRemoving:Connect(function()d.
+_controlsDirty=true end))d:_enableDrag()d.MaxSize=k.MaxSize d.KeepOnScreen=k.
+KeepOnScreen~=false d:_enableResize(k.MinSize or Vector2.new(480,360))local A=k.
+ConfigurationSaving if type(A)==B and A.Enabled~=false then d.ConfigFolder=A.
+FolderName or H d.ConfigName=A.FileName or'default'd._autoSaveEnabled=A.AutoSave
+==true else d.ConfigFolder=H d.ConfigName='default'd._autoSaveEnabled=false end
+table.insert(d._connections,p.InputBegan:Connect(function(a,b)if b then return
+end if a.KeyCode==Enum.KeyCode.Escape and d._dialog and d._dialog.Dismissable
+then d._dialog.Cancel()return end if a.UserInputType==Enum.UserInputType.
+Keyboard and a.KeyCode==d.Keybind then task.defer(function()local b=d.
+_consumedKey==a.KeyCode and os.clock()-(d._consumedAt or 0)<0.2 d._consumedKey=
+nil if not b and not d._destroyed then d:Toggle(not d.Open)end end)end end))
+pcall(function()if typeof(syn)=='table'and typeof(syn.protect_gui)=='function'
+then syn.protect_gui(s)end end)s.Parent=k.Parent or as()O.Scale=0.9 l.
+GroupTransparency=1 P.ImageTransparency=1 d.BodyStroke.Transparency=1 y.Visible=
+false d:_fitToScreen(true)table.insert(d._connections,s:
+GetPropertyChangedSignal(J):Connect(function()d:_fitToScreen()d:_clampToScreen()
+end))if k.OpenButton~=false then d:_createOpenButton(type(k.OpenButton)==B and k
+.OpenButton or{})end d._introDone=false table.insert(e.Windows,d)if k.Home then
+d:_buildHome(type(k.Home)==B and k.Home or{})end for _,name in ipairs({'Server',
+'Esp','Settings'})do local opt=k[name]if opt~=false then d['_build'..name](d,
+type(opt)==B and opt or{})end end local r=k.Loading if type(r)==B then k.
+LoadingDuration=r.Duration or k.LoadingDuration k.LoadingText=r.Text or r.
+Subtitle or k.LoadingText k.LoadingSteps=r.Steps or k.LoadingSteps k.
+LoadingTitle=r.Title or k.LoadingTitle r=r.Enabled~=false end if r==false then
+task.defer(function()d:_playIntro()end)else d:_showLoader(k)end return d end e.
+CreateWindow=e.Window local function C(a,b,d)local e=a[b]:ToHex()local c=d[e]if
+c then a[b]=c end end local function aC(a,d)local b=false local c={}for f,a in
+ipairs(a.Color.Keypoints)do local e=d[a.Value:ToHex()]if e then b=true end c[f]=
+ColorSequenceKeypoint.new(a.Time,e or a.Value)end if b then a.Color=
+ColorSequence.new(c)end end local function aD(a,b)if a:GetAttribute(
+'OblivionNoTheme')then return end if a:IsA('GuiObject')then C(a,
 'BackgroundColor3',b)end if a:IsA('TextLabel')or a:IsA('TextButton')or a:IsA(
 'TextBox')then C(a,'TextColor3',b)end if a:IsA('TextBox')then C(a,
 'PlaceholderColor3',b)end if a:IsA('ImageLabel')or a:IsA('ImageButton')then C(a,
@@ -1640,31 +1641,31 @@ BodyStroke,{Transparency=1},0.12)b(self.Shadow,{ImageTransparency=1},0.16)task.
 delay(0.2,function()if not self.Open then self.Root.Visible=false end end)end
 end function h:SetKeepOnScreen(a)self.KeepOnScreen=a~=false if self.KeepOnScreen
 then self:_clampToScreen()end end function h:SetKeybind(a)a=F(a)if not a then
-return end self.Keybind=a self._keyChipLabel.Text=W(a)end function h:SetTitle()
-end function h:SetSubtitle(a)self._subtitleLabel.Text=tostring(a)end function h:
-SetIcon(a)u(self._logo,a)end function h:Notify(d)local logo=e.Assets and e.
-Assets.Logo d=n(d,{Text='Content',Message='Content',Image='Icon'})local duration
-=d.Duration or 4 local kind=aB[d.Type]local tone=kind and a[kind]or a.Accent
-local icons={Info='info',Success='circle-check',Warning='triangle-alert',Error=
-'circle-x'}local icon=d.Icon or icons[d.Type]self._notifyOrder+=1 local slot=c(
-'Frame',{Size=UDim2.new(1,0,0,0),BackgroundTransparency=1,LayoutOrder=self.
-_notifyOrder,Parent=self.NotifyHolder})local mover=c('Frame',{Position=UDim2.
-fromOffset(40,0),Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,
-BackgroundTransparency=1,Parent=slot})local pop=c('UIScale',{Scale=0.94,Parent=
-mover})local shadow=c('ImageLabel',{Position=UDim2.fromOffset(-22,-18),Size=
-UDim2.new(1,44,1,44),BackgroundTransparency=1,Image=v.Shadow,ImageColor3=Color3.
-new(0,0,0),ImageTransparency=1,ScaleType=Enum.ScaleType.Slice,SliceCenter=v.
-ShadowSlice,ZIndex=0,Parent=mover})local card=c('CanvasGroup',{Size=UDim2.new(1,
-0,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=a.Surface,
-BorderSizePixel=0,GroupTransparency=1,Parent=mover})g(card,UDim.new(0,14))local
-stroke=i(card,a.Stroke)T(card)z(card,UDim2.fromOffset(220,110),UDim2.new(0,10,0,
-0),0.9,90)local body=c('Frame',{Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.
-AutomaticSize.Y,BackgroundTransparency=1,Parent=card})o(body,12,40,12,14)local
-tile=c('Frame',{Size=UDim2.fromOffset(36,36),BackgroundColor3=tone,
-BackgroundTransparency=0.86,BorderSizePixel=0,Parent=body})g(tile,UDim.new(0,10)
-)i(tile,tone,0.7)local glyph=c('ImageLabel',{AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(18,18),
-BackgroundTransparency=1,ImageColor3=icon and tone or a.Text,ScaleType=Enum.
+return end self.Keybind=a self._keyChipLabel.Text=W(a)end function h:SetTitle(a)
+self._titleLabel.Text=tostring(a)end function h:SetSubtitle(a)self.
+_subtitleLabel.Text=tostring(a)end function h:SetIcon(a)u(self._logo,a)end
+function h:Notify(d)local logo=e.Assets and e.Assets.Logo d=n(d,{Text='Content',
+Message='Content',Image='Icon'})local duration=d.Duration or 4 local kind=aB[d.
+Type]local tone=kind and a[kind]or a.Accent local icons={Info='info',Success=
+'circle-check',Warning='triangle-alert',Error='circle-x'}local icon=d.Icon or
+icons[d.Type]self._notifyOrder+=1 local slot=c('Frame',{Size=UDim2.new(1,0,0,0),
+BackgroundTransparency=1,LayoutOrder=self._notifyOrder,Parent=self.NotifyHolder}
+)local mover=c('Frame',{Position=UDim2.fromOffset(40,0),Size=UDim2.new(1,0,0,0),
+AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Parent=slot})local
+pop=c('UIScale',{Scale=0.94,Parent=mover})local shadow=c('ImageLabel',{Position=
+UDim2.fromOffset(-22,-18),Size=UDim2.new(1,44,1,44),BackgroundTransparency=1,
+Image=v.Shadow,ImageColor3=Color3.new(0,0,0),ImageTransparency=1,ScaleType=Enum.
+ScaleType.Slice,SliceCenter=v.ShadowSlice,ZIndex=0,Parent=mover})local card=c(
+'CanvasGroup',{Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundColor3=a.Surface,BorderSizePixel=0,GroupTransparency=1,Parent=mover})
+g(card,UDim.new(0,14))local stroke=i(card,a.Stroke)T(card)z(card,UDim2.
+fromOffset(220,110),UDim2.new(0,10,0,0),0.9,90)local body=c('Frame',{Size=UDim2.
+new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Parent=
+card})o(body,12,40,12,14)local tile=c('Frame',{Size=UDim2.fromOffset(36,36),
+BackgroundColor3=tone,BackgroundTransparency=0.86,BorderSizePixel=0,Parent=body}
+)g(tile,UDim.new(0,10))i(tile,tone,0.7)local glyph=c('ImageLabel',{AnchorPoint=
+Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(18,
+18),BackgroundTransparency=1,ImageColor3=icon and tone or a.Text,ScaleType=Enum.
 ScaleType.Fit,Parent=tile})u(glyph,icon or logo or'bell')local text=c('Frame',{
 Position=UDim2.fromOffset(48,0),Size=UDim2.new(1,-48,0,0),AutomaticSize=Enum.
 AutomaticSize.Y,BackgroundTransparency=1,Parent=body})c('UIListLayout',{

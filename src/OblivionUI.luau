@@ -3317,8 +3317,9 @@ function e.Window(ac, k)
 	d._titleLabel = f({
 		Position = UDim2.fromOffset(60, 25),
 		Size = UDim2.new(1, -70, 0, 20),
-		Text = "Oblivion", -- brand title is fixed, scripts set Subtitle instead
+		Text = k.Name or "Oblivion",
 		TextSize = 20,
+		TextTruncate = Enum.TextTruncate.AtEnd,
 		Parent = K,
 	})
 	d._subtitleLabel = f({
@@ -6238,8 +6239,8 @@ function h:SetKeybind(a)
 	self.Keybind = a
 	self._keyChipLabel.Text = W(a)
 end
-function h:SetTitle()
-	-- the window title always reads Oblivion
+function h:SetTitle(a)
+	self._titleLabel.Text = tostring(a)
 end
 function h:SetSubtitle(a)
 	self._subtitleLabel.Text = tostring(a)
